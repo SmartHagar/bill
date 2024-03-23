@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { api } from "@/services/baseURL";
-// api satuan
+// api kelompok
 type Props = {
   page?: number;
   limit?: number;
@@ -11,34 +11,34 @@ type Props = {
 };
 
 type Store = {
-  dtSatuan: any;
-  setSatuan: ({ page, limit, search }: Props) => Promise<{
+  dtKelompok: any;
+  setKelompok: ({ page, limit, search }: Props) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
-  setSatuanAll: ({ search }: Props) => Promise<{
+  setKelompokAll: ({ search }: Props) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
 };
 
-const useSatuanApi = create(
+const useKelompokApi = create(
   devtools<Store>((set, get) => ({
-    dtSatuan: [],
-    setSatuan: async ({ page = 1, limit = 10, search }) => {
+    dtKelompok: [],
+    setKelompok: async ({ page = 1, limit = 10, search }) => {
       try {
         const response = await api({
           method: "get",
-          url: `/satuan`,
+          url: `/kelompok`,
           params: {
             limit,
             page,
             search,
           },
         });
-        set((state) => ({ ...state, dtSatuan: response.data }));
+        set((state) => ({ ...state, dtKelompok: response.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -50,16 +50,16 @@ const useSatuanApi = create(
         };
       }
     },
-    setSatuanAll: async ({ search }) => {
+    setKelompokAll: async ({ search }) => {
       try {
         const response = await api({
           method: "get",
-          url: `/satuan/all`,
+          url: `/kelompok/all`,
           params: {
             search,
           },
         });
-        set((state) => ({ ...state, dtSatuan: response.data }));
+        set((state) => ({ ...state, dtKelompok: response.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -74,4 +74,4 @@ const useSatuanApi = create(
   }))
 );
 
-export default useSatuanApi;
+export default useKelompokApi;

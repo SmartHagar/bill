@@ -4,21 +4,23 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { crud } from "@/services/baseURL";
 import useLogin from "@/stores/auth/login";
-// store obatMasuk
+// store kelompok
 type Props = {
   page?: number;
   limit?: number;
   search?: string;
+  sortby?: string;
+  order?: string;
 };
 
 type Store = {
-  dtObatMasuk: any;
-  setObatMasuk: ({ page, limit, search }: Props) => Promise<{
+  dtKelompok: any;
+  setKelompok: ({ page, limit, search, sortby, order }: Props) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
-  setShowObatMasuk: (id: number | string) => Promise<{
+  setShowKelompok: (id: number | string) => Promise<{
     status: string;
     data?: {};
     error?: {};
@@ -33,23 +35,25 @@ type Store = {
   ) => Promise<{ status: string; data?: any; error?: any }>;
 };
 
-const useObatMasuk = create(
+const useKelompok = create(
   devtools<Store>((set, get) => ({
-    dtObatMasuk: [],
-    setObatMasuk: async ({ page = 1, limit = 10, search }) => {
+    dtKelompok: [],
+    setKelompok: async ({ page = 1, limit = 10, search, sortby, order }) => {
       try {
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "get",
-          url: `/obatMasuk`,
+          url: `/kelompok`,
           headers: { Authorization: `Bearer ${token}` },
           params: {
             limit,
             page,
             search,
+            sortby,
+            order,
           },
         });
-        set((state) => ({ ...state, dtObatMasuk: response.data.data }));
+        set((state) => ({ ...state, dtKelompok: response.data.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -61,15 +65,15 @@ const useObatMasuk = create(
         };
       }
     },
-    setShowObatMasuk: async (id) => {
+    setShowKelompok: async (id) => {
       try {
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "get",
-          url: `/obatMasuk/${id}`,
+          url: `/kelompok/${id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
-        set((state) => ({ ...state, dtObatMasuk: response.data.data }));
+        set((state) => ({ ...state, dtKelompok: response.data.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -86,17 +90,17 @@ const useObatMasuk = create(
         const token = await useLogin.getState().setToken();
         const res = await crud({
           method: "post",
-          url: `/obatMasuk`,
+          url: `/kelompok`,
           headers: {
             Authorization: `Bearer ${token}`,
           },
           data: row,
         });
         set((prevState) => ({
-          dtObatMasuk: {
-            last_page: prevState.dtObatMasuk.last_page,
-            current_page: prevState.dtObatMasuk.current_page,
-            data: [res.data.data, ...prevState.dtObatMasuk.data],
+          dtKelompok: {
+            last_page: prevState.dtKelompok.last_page,
+            current_page: prevState.dtKelompok.current_page,
+            data: [res.data.data, ...prevState.dtKelompok.data],
           },
         }));
         return {
@@ -115,14 +119,14 @@ const useObatMasuk = create(
         const token = await useLogin.getState().setToken();
         const res = await crud({
           method: "delete",
-          url: `/obatMasuk/${id}`,
+          url: `/kelompok/${id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
         set((prevState) => ({
-          dtObatMasuk: {
-            last_page: prevState.dtObatMasuk.last_page,
-            current_page: prevState.dtObatMasuk.current_page,
-            data: prevState.dtObatMasuk.data.filter(
+          dtKelompok: {
+            last_page: prevState.dtKelompok.last_page,
+            current_page: prevState.dtKelompok.current_page,
+            data: prevState.dtKelompok.data.filter(
               (item: any) => item.id !== id
             ),
           },
@@ -143,15 +147,15 @@ const useObatMasuk = create(
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "PUT",
-          url: `/obatMasuk/${id}`,
+          url: `/kelompok/${id}`,
           headers: { Authorization: `Bearer ${token}` },
           data: row,
         });
         set((prevState) => ({
-          dtObatMasuk: {
-            last_page: prevState.dtObatMasuk.last_page,
-            current_page: prevState.dtObatMasuk.current_page,
-            data: prevState.dtObatMasuk.data.map((item: any) => {
+          dtKelompok: {
+            last_page: prevState.dtKelompok.last_page,
+            current_page: prevState.dtKelompok.current_page,
+            data: prevState.dtKelompok.data.map((item: any) => {
               if (item.id === id) {
                 return {
                   ...item,
@@ -177,4 +181,4 @@ const useObatMasuk = create(
   }))
 );
 
-export default useObatMasuk;
+export default useKelompok;

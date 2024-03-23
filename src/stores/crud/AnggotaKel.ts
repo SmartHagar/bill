@@ -4,21 +4,27 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { crud } from "@/services/baseURL";
 import useLogin from "@/stores/auth/login";
-// store obatKeluar
+
+// crud anggotaKel
+
 type Props = {
   page?: number;
   limit?: number;
   search?: string;
+  tipe?: string;
+  sortby?: string;
+  order?: string;
 };
 
 type Store = {
-  dtObatKeluar: any;
-  setObatKeluar: ({ page, limit, search }: Props) => Promise<{
+  dtAnggotaKel: any;
+  showAnggotaKel: any;
+  setAnggotaKel: ({ page, limit, search, sortby, order }: Props) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
-  setShowObatKeluar: (id: number | string) => Promise<{
+  setShowAnggotaKel: (id: string | number) => Promise<{
     status: string;
     data?: {};
     error?: {};
@@ -31,25 +37,37 @@ type Store = {
     id: number | string,
     data: any
   ) => Promise<{ status: string; data?: any; error?: any }>;
+  setFormData: any;
 };
 
-const useObatKeluar = create(
+const useAnggotaKel = create(
   devtools<Store>((set, get) => ({
-    dtObatKeluar: [],
-    setObatKeluar: async ({ page = 1, limit = 10, search }) => {
+    setFormData: (row: any) => {
+      const formData = new FormData();
+      formData.append("jenis_id", row.jenis_id);
+      formData.append("nama", row.nama);
+      formData.append("satuan", row.satuan);
+      formData.append("gambar", row.gambar);
+      return formData;
+    },
+    dtAnggotaKel: [],
+    showAnggotaKel: [],
+    setAnggotaKel: async ({ page = 1, limit = 10, search, sortby, order }) => {
       try {
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "get",
-          url: `/obatKeluar`,
+          url: `/anggotaKel`,
           headers: { Authorization: `Bearer ${token}` },
           params: {
             limit,
             page,
             search,
+            sortby,
+            order,
           },
         });
-        set((state) => ({ ...state, dtObatKeluar: response.data.data }));
+        set((state) => ({ ...state, dtAnggotaKel: response.data.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -61,15 +79,16 @@ const useObatKeluar = create(
         };
       }
     },
-    setShowObatKeluar: async (id) => {
+    setShowAnggotaKel: async (id) => {
       try {
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "get",
-          url: `/obatKeluar/${id}`,
+          url: `/anggotaKel/${id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
-        set((state) => ({ ...state, dtObatKeluar: response.data.data }));
+        console.log({ response });
+        set((state) => ({ ...state, showAnggotaKel: response.data.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -82,21 +101,23 @@ const useObatKeluar = create(
       }
     },
     addData: async (row) => {
+      const formData = row?.gambar ? get().setFormData(row) : row;
       try {
         const token = await useLogin.getState().setToken();
         const res = await crud({
           method: "post",
-          url: `/obatKeluar`,
+          url: `/anggotaKel`,
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
-          data: row,
+          data: formData,
         });
-        set((prevState) => ({
-          dtObatKeluar: {
-            last_page: prevState.dtObatKeluar.last_page,
-            current_page: prevState.dtObatKeluar.current_page,
-            data: [res.data.data, ...prevState.dtObatKeluar.data],
+        set((prevState: any) => ({
+          dtAnggotaKel: {
+            last_page: prevState.dtAnggotaKel.last_page,
+            current_page: prevState.dtAnggotaKel.current_page,
+            data: [res.data.data, ...prevState.dtAnggotaKel.data],
           },
         }));
         return {
@@ -115,14 +136,14 @@ const useObatKeluar = create(
         const token = await useLogin.getState().setToken();
         const res = await crud({
           method: "delete",
-          url: `/obatKeluar/${id}`,
+          url: `/anggotaKel/${id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
-        set((prevState) => ({
-          dtObatKeluar: {
-            last_page: prevState.dtObatKeluar.last_page,
-            current_page: prevState.dtObatKeluar.current_page,
-            data: prevState.dtObatKeluar.data.filter(
+        set((prevState: any) => ({
+          dtAnggotaKel: {
+            last_page: prevState.dtAnggotaKel.last_page,
+            current_page: prevState.dtAnggotaKel.current_page,
+            data: prevState.dtAnggotaKel.data.filter(
               (item: any) => item.id !== id
             ),
           },
@@ -139,19 +160,32 @@ const useObatKeluar = create(
       }
     },
     updateData: async (id, row) => {
+      delete row.id;
+      const formData = row?.gambar ? get().setFormData(row) : row;
+      const token = await useLogin.getState().setToken();
+      const headersImg = {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      };
       try {
-        const token = await useLogin.getState().setToken();
         const response = await crud({
-          method: "PUT",
-          url: `/obatKeluar/${id}`,
-          headers: { Authorization: `Bearer ${token}` },
-          data: row,
+          url: `/anggotaKel/${id}`,
+          method: "post",
+          headers: row?.gambar
+            ? headersImg
+            : {
+                Authorization: `Bearer ${token}`,
+              },
+          data: formData,
+          params: {
+            _method: "PUT",
+          },
         });
-        set((prevState) => ({
-          dtObatKeluar: {
-            last_page: prevState.dtObatKeluar.last_page,
-            current_page: prevState.dtObatKeluar.current_page,
-            data: prevState.dtObatKeluar.data.map((item: any) => {
+        set((prevState: any) => ({
+          dtAnggotaKel: {
+            last_page: prevState.dtAnggotaKel.last_page,
+            current_page: prevState.dtAnggotaKel.current_page,
+            data: prevState.dtAnggotaKel.data.map((item: any) => {
               if (item.id === id) {
                 return {
                   ...item,
@@ -177,4 +211,4 @@ const useObatKeluar = create(
   }))
 );
 
-export default useObatKeluar;
+export default useAnggotaKel;
