@@ -25,7 +25,7 @@ const SubMenu: FC<Props> = ({
 }: Props) => {
   const isMenuOpen = openMenus.includes(slug);
   return (
-    <div key={index}>
+    <div key={index} className="cursor-pointer">
       <details
         className="group [&_summary::-webkit-details-marker]:hidden"
         open={isMenuOpen}
@@ -33,7 +33,7 @@ const SubMenu: FC<Props> = ({
         <summary
           className={`flex items-center justify-between px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-menu-active hover:text-gray-200 }`}
         >
-          <div className="flex items-center cursor-pointer">
+          <div className="flex items-center">
             <span>{icon}</span>
             <span className="mx-2 text-sm font-medium">{name}</span>
           </div>

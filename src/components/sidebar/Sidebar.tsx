@@ -73,7 +73,7 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
   }, [menus, pathname]);
 
   return (
-    <div className="sidebar">
+    <>
       <div className="absolute top-0">
         <button
           onClick={handleBurger}
@@ -98,7 +98,7 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
       </div>
 
       <aside
-        className={`fixed top-0 left-0 z-40 w-64 bg-puskesmas bg-cover bg-center h-screen transition-transform -translate-x-full sm:translate-x-0 ${
+        className={`z-40 w-full h-screen transition-transform -translate-x-full sm:translate-x-0 ${
           open ? "translate-x-0" : ""
         }`}
         aria-label="Sidebar"
@@ -132,8 +132,8 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
                     <li key={index}>
                       <Link
                         href={menu.href || "#"}
-                        className={`flex w-full items-center p-2 text-color-2 hover:bg-menu-active transition-all duration-500 rounded-lg group ${
-                          isActive && "bg-menu-active"
+                        className={`flex w-full items-center p-2 text-color-2 hover:bg-white hover:text-dark-blue transition-all duration-700 rounded-lg group ${
+                          isActive && "text-green font-bold"
                         }`}
                       >
                         {icon}
@@ -160,7 +160,7 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
           </div>
         </div>
       </aside>
-    </div>
+    </>
   );
 };
 
