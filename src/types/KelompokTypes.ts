@@ -1,11 +1,8 @@
 /** @format */
 
-interface MenuTypes {
-  name: string;
-  href?: string;
-  icon?: JSX.Element;
-  slug?: string;
-  subMenus?: MenuTypes[];
+interface KelompokTypes {
+  id: string | number;
+  nm_kelompok: string;
 }
 
-export default MenuTypes;
+export default KelompokTypes;

@@ -112,7 +112,7 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
           </div>
           <div className="relative h-full sidebar w-full">
             <div className="h-24 sidebar"></div>
-            <ul className="space-y-2 font-medium w-full">
+            <ul className="space-y-2 w-full">
               {menus &&
                 menus.map((menu, index) => {
                   const isActive = pathname === menu.href;
@@ -148,7 +148,7 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
             ) : (
               <div className="absolute bottom-4 flex justify-center left-0 right-0">
                 <BtnDefault
-                  addClass="bg-secondary text-color-1"
+                  addClass="bg-green text-dark-blue"
                   onClick={() =>
                     handleLogout({ setLogout, setLoadLogout, route })
                   }

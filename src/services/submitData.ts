@@ -23,7 +23,6 @@ export default async function submitData({
   toastShow,
 }: Props) {
   setIsLoading(true);
-  row.status = "diproses";
   console.log({ row });
   // jika dtEdit tidak kosong maka update
   if (dtEdit) {

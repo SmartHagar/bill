@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { crud } from "@/services/baseURL";
 import useLogin from "@/stores/auth/login";
+import KelompokTypes from "@/types/KelompokTypes";
 // store kelompok
 type Props = {
   page?: number;
@@ -14,30 +15,45 @@ type Props = {
 };
 
 type Store = {
-  dtKelompok: any;
+  dtKelompok: {
+    last_page: number;
+    current_page: number;
+    data: KelompokTypes[];
+  };
+
   setKelompok: ({ page, limit, search, sortby, order }: Props) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
+
   setShowKelompok: (id: number | string) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
-  addData: (data: any) => Promise<{ status: string; data?: any; error?: any }>;
-  removeData: (
-    data: any
+
+  addData: (
+    data: KelompokTypes
   ) => Promise<{ status: string; data?: any; error?: any }>;
+
+  removeData: (
+    id: number | string
+  ) => Promise<{ status: string; data?: any; error?: any }>;
+
   updateData: (
     id: number | string,
-    data: any
+    data: KelompokTypes
   ) => Promise<{ status: string; data?: any; error?: any }>;
 };
 
 const useKelompok = create(
   devtools<Store>((set, get) => ({
-    dtKelompok: [],
+    dtKelompok: {
+      last_page: 0,
+      current_page: 0,
+      data: [],
+    },
     setKelompok: async ({ page = 1, limit = 10, search, sortby, order }) => {
       try {
         const token = await useLogin.getState().setToken();

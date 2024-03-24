@@ -20,47 +20,18 @@ const ListMenu: MenuTypes[] = [
   },
 
   {
-    name: "Jenis",
-    href: createUrl("/jenis"),
-    icon: <BsBasket />,
-  },
-
-  {
-    name: "Satuan",
-    href: createUrl("/satuan"),
-    icon: <BsAsterisk />,
-  },
-
-  {
-    name: "Dokter",
-    href: createUrl("/dokter"),
-    icon: <BsAsterisk />,
-  },
-
-  {
-    name: "Petugas",
-    href: createUrl("/petugas"),
-    icon: <BsAsterisk />,
-  },
-
-  {
-    name: "Obat",
+    name: "Kelompok",
     icon: <BsBandaid />,
-    slug: "obat",
+    slug: "kelompok",
     subMenus: [
       {
-        name: "Daftar Obat",
-        href: createUrl("/obat/daftar"),
+        name: "Daftar",
+        href: createUrl("/kelompok/daftar"),
       },
 
       {
-        name: "Obat Masuk",
-        href: createUrl("/obat/masuk"),
-      },
-
-      {
-        name: "Stok Obat",
-        href: createUrl("/obat/persediaan"),
+        name: "Anggota",
+        href: createUrl("/kelompok/anggota"),
       },
     ],
   },

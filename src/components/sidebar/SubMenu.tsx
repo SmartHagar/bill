@@ -31,11 +31,11 @@ const SubMenu: FC<Props> = ({
         open={isMenuOpen}
       >
         <summary
-          className={`flex items-center justify-between px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-menu-active hover:text-gray-200 }`}
+          className={`flex items-center justify-between px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-white hover:text-dark-blue }`}
         >
           <div className="flex items-center">
             <span>{icon}</span>
-            <span className="mx-2 text-sm font-medium">{name}</span>
+            <span className="mx-2">{name}</span>
           </div>
           <span className="shrink-0 transition duration-300 group-open:-rotate-180">
             <svg
@@ -60,9 +60,8 @@ const SubMenu: FC<Props> = ({
                 {!subMenu.subMenus && (
                   <Link
                     href={subMenu.href || "#"}
-                    className={`flex items-center mx-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-menu-active hover:text-gray-200 ${
-                      isActiveSub &&
-                      "border-b-2 border-menu-active bg-menu-active/50"
+                    className={`flex items-center mx-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-white hover:text-dark-blue ${
+                      isActiveSub && "text-green font-bold"
                     }`}
                   >
                     <span className="mx-2 text-sm font-medium">

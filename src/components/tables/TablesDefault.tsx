@@ -15,7 +15,7 @@ import {
 
 type Props = {
   headTable: string[];
-  dataTable: [];
+  dataTable: any[];
   tableBodies: string[];
   setEdit?: (data: any) => void | undefined;
   setDelete?: ({
