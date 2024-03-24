@@ -1,4 +1,7 @@
+/** @format */
+
 import type { Config } from "tailwindcss";
+import colors from "./src/utils/colors";
 
 const config: Config = {
   content: [
@@ -9,10 +12,10 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        linear:
+          "linear-gradient(77deg, rgba(10,38,64,1) 16%, rgba(28,61,91,1) 79%)",
       },
+      colors,
     },
   },
   plugins: [],

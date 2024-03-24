@@ -12,7 +12,7 @@ type Props = {
 const BtnDefault: FC<Props> = ({
   children,
   onClick,
-  addClass = "bg-btn-primary hover:bg-btn-primary/80 text-white",
+  addClass = "bg-green hover:bg-green/60",
   type = "button",
 }) => {
   return (
