@@ -44,10 +44,15 @@ const useAnggotaKel = create(
   devtools<Store>((set, get) => ({
     setFormData: (row: any) => {
       const formData = new FormData();
-      formData.append("jenis_id", row.jenis_id);
-      formData.append("nama", row.nama);
-      formData.append("satuan", row.satuan);
-      formData.append("gambar", row.gambar);
+      formData.append("kelompok_id", row.kelompok_id);
+      formData.append("user_id", row.user_id);
+      formData.append("nik", row.nik);
+      formData.append("nm_anggota", row.nm_anggota);
+      formData.append("jenkel", row.jenkel);
+      formData.append("alamat", row.alamat);
+      formData.append("no_hp", row.no_hp);
+      formData.append("status_kelompok", row.status_kelompok);
+      formData.append("foto", row.foto);
       return formData;
     },
     dtAnggotaKel: [],
@@ -101,7 +106,7 @@ const useAnggotaKel = create(
       }
     },
     addData: async (row) => {
-      const formData = row?.gambar ? get().setFormData(row) : row;
+      const formData = row?.foto ? get().setFormData(row) : row;
       try {
         const token = await useLogin.getState().setToken();
         const res = await crud({
@@ -161,7 +166,7 @@ const useAnggotaKel = create(
     },
     updateData: async (id, row) => {
       delete row.id;
-      const formData = row?.gambar ? get().setFormData(row) : row;
+      const formData = row?.foto ? get().setFormData(row) : row;
       const token = await useLogin.getState().setToken();
       const headersImg = {
         "Content-Type": "multipart/form-data",
@@ -171,7 +176,7 @@ const useAnggotaKel = create(
         const response = await crud({
           url: `/anggotaKel/${id}`,
           method: "post",
-          headers: row?.gambar
+          headers: row?.foto
             ? headersImg
             : {
                 Authorization: `Bearer ${token}`,
