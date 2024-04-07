@@ -1,14 +1,17 @@
 /** @format */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ShowData from "./ShowData";
 import Form from "./form/Form";
 import ModalDelete from "@/components/modal/ModalDelete";
-import useKelompok from "@/stores/crud/Kelompok";
 import { Toaster } from "react-hot-toast";
 import toastShow from "@/utils/toast-show";
 import InputTextSearch from "@/components/input/InputTextSearch";
+import useAnggota from "@/stores/crud/Anggota";
+import { useSearchParams } from "next/navigation";
+import { BASE_URL } from "@/services/baseURL";
+import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import BtnDefault from "@/components/button/BtnDefault";
 
 // type setDelete
@@ -17,9 +20,9 @@ type Delete = {
   isDelete: boolean;
 };
 
-const Kelompok = () => {
+const Dosen = () => {
   // store
-  const { removeData } = useKelompok();
+  const { removeData } = useAnggota();
   // state
   const [showModal, setShowModal] = useState(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -40,7 +43,7 @@ const Kelompok = () => {
   const setDelete = async ({ id, isDelete }: Delete) => {
     setIdDel(id);
     if (isDelete) {
-      const { data } = await removeData(idDel as number);
+      const { data } = await removeData(idDel);
       toastShow({
         event: data,
       });
@@ -49,7 +52,7 @@ const Kelompok = () => {
   };
 
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col h-full">
       <div>
         <Toaster />
         <Form
@@ -62,14 +65,15 @@ const Kelompok = () => {
           setShowDel={setShowDelete}
           setDelete={setDelete}
         />
+        {/* keterangan */}
         <div className="mb-4 flex justify-between">
-          <p>Silahkan Mengolah data Kelompok</p>
+          <p>Silahkan Mengolah data Anggota</p>
           <div>
             <BtnDefault onClick={handleTambah}>Tambah Data</BtnDefault>
           </div>
         </div>
         <InputTextSearch
-          placeholder="Cari Kelompok"
+          placeholder="Cari Data"
           onChange={(e) => setSearch(e)}
         />
       </div>
@@ -79,4 +83,4 @@ const Kelompok = () => {
   );
 };
 
-export default Kelompok;
+export default Dosen;

@@ -26,7 +26,6 @@ export default async function submitData({
   console.log({ row });
   // jika dtEdit tidak kosong maka update
   if (dtEdit) {
-    row.dosen = true;
     const { data } = await updateData(dtEdit.id, row);
     toastShow({
       event: data,

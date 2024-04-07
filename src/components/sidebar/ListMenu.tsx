@@ -15,25 +15,13 @@ const createUrlPetugas = (path: string) => `/petugas${path}`;
 const ListMenu: MenuTypes[] = [
   {
     name: "Home",
-    href: createUrl("/dashboard"),
+    href: createUrl(""),
     icon: <BsHouseDoor />,
   },
-
   {
-    name: "Kelompok",
-    icon: <BsBandaid />,
-    slug: "kelompok",
-    subMenus: [
-      {
-        name: "Daftar",
-        href: createUrl("/kelompok/daftar"),
-      },
-
-      {
-        name: "Anggota",
-        href: createUrl("/kelompok/anggota"),
-      },
-    ],
+    name: "Anggota",
+    href: createUrl("/anggota"),
+    icon: <BsPeople />,
   },
 ];
 

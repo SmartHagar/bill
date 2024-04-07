@@ -4,8 +4,7 @@ import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import PaginationDefault from "@/components/pagination/PaginationDefault";
 import TablesDefault from "@/components/tables/TablesDefault";
 import React, { FC, useEffect, useState } from "react";
-import useAnggotaKel from "@/stores/crud/AnggotaKel";
-import { useSearchParams } from "next/navigation";
+import useAnggota from "@/stores/crud/Anggota";
 
 type DeleteProps = {
   id?: number | string;
@@ -19,19 +18,15 @@ type Props = {
 };
 
 const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
-  // get search params
-  const params = useSearchParams();
-  // get berita_acara_id
-  const berita_acara_id = params.get("berita_acara_id") || "";
   // store
-  const { setAnggotaKel, dtAnggotaKel } = useAnggotaKel();
+  const { setAnggota, dtAnggota } = useAnggota();
   // state
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const fetchDataAnggotaKel = async () => {
-    const res = await setAnggotaKel({
+  const fetchDataAnggota = async () => {
+    const res = await setAnggota({
       page,
       limit,
       search,
@@ -39,7 +34,7 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
     setIsLoading(false);
   };
   useEffect(() => {
-    fetchDataAnggotaKel();
+    fetchDataAnggota();
 
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,21 +42,31 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
   // ketika search berubah
   useEffect(() => {
     setPage(1);
-    fetchDataAnggotaKel();
+    fetchDataAnggota();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   // table
   const headTable = [
     "No",
-    "Tgl. Pertemuan",
-    "Materi",
-    "Jumlah MHS",
-    "Sistem Belajar",
+    "NIK",
+    "Nama",
+    "Jenkel",
+    "Alamat",
+    "No. HP",
+    "Jabatan",
     "Foto",
     "Aksi",
   ];
-  const tableBodies = ["tgl", "materi", "jmlh_mhs", "sistem", "foto"];
+  const tableBodies = [
+    "nik",
+    "nm_anggota",
+    "jenkel",
+    "alamat",
+    "no_hp",
+    "jabatan",
+    "foto",
+  ];
 
   return (
     <div className="flex-1 flex-col max-w-full h-full overflow-auto">
@@ -73,7 +78,7 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
             <TablesDefault
               headTable={headTable}
               tableBodies={tableBodies}
-              dataTable={dtAnggotaKel.data}
+              dataTable={dtAnggota.data}
               page={page}
               limit={limit}
               setEdit={setEdit}
@@ -82,11 +87,11 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
               hapus={true}
             />
           </div>
-          {dtAnggotaKel?.last_page > 1 && (
+          {dtAnggota?.last_page > 1 && (
             <div className="mt-4">
               <PaginationDefault
-                currentPage={dtAnggotaKel?.current_page}
-                totalPages={dtAnggotaKel?.last_page}
+                currentPage={dtAnggota?.current_page}
+                totalPages={dtAnggota?.last_page}
                 setPage={setPage}
               />
             </div>

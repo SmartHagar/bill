@@ -1,16 +1,15 @@
 /** @format */
 
-interface AnggotaKelTypes {
+interface AnggotaTypes {
   id: string | number;
-  kelompok_id: string | number;
   user_id: string | number;
-  nik: number;
+  nik: number | string;
   nm_anggota: string;
   jenkel: string;
   alamat: string;
   no_hp: string;
-  status_kelompok: string;
+  jabatan: string;
   foto: string;
 }
 
-export default AnggotaKelTypes;
+export default AnggotaTypes;

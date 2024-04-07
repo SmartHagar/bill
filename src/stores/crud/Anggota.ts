@@ -4,62 +4,64 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { crud } from "@/services/baseURL";
 import useLogin from "@/stores/auth/login";
-import KelompokTypes from "@/types/KelompokTypes";
-// store kelompok
+
+// crud anggota
+
 type Props = {
   page?: number;
   limit?: number;
   search?: string;
+  tipe?: string;
   sortby?: string;
   order?: string;
 };
 
 type Store = {
-  dtKelompok: {
-    last_page: number;
-    current_page: number;
-    data: KelompokTypes[];
-  };
-
-  setKelompok: ({ page, limit, search, sortby, order }: Props) => Promise<{
+  dtAnggota: any;
+  showAnggota: any;
+  setAnggota: ({ page, limit, search, sortby, order }: Props) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
-
-  setShowKelompok: (id: number | string) => Promise<{
+  setShowAnggota: (id: string | number) => Promise<{
     status: string;
     data?: {};
     error?: {};
   }>;
-
-  addData: (
-    data: KelompokTypes
-  ) => Promise<{ status: string; data?: any; error?: any }>;
-
+  addData: (data: any) => Promise<{ status: string; data?: any; error?: any }>;
   removeData: (
-    id: number | string
+    data: any
   ) => Promise<{ status: string; data?: any; error?: any }>;
-
   updateData: (
     id: number | string,
-    data: KelompokTypes
+    data: any
   ) => Promise<{ status: string; data?: any; error?: any }>;
+  setFormData: any;
 };
 
-const useKelompok = create(
+const useAnggota = create(
   devtools<Store>((set, get) => ({
-    dtKelompok: {
-      last_page: 0,
-      current_page: 0,
-      data: [],
+    setFormData: (row: any) => {
+      const formData = new FormData();
+      formData.append("user_id", row.user_id);
+      formData.append("nik", row.nik);
+      formData.append("nm_anggota", row.nm_anggota);
+      formData.append("jenkel", row.jenkel);
+      formData.append("alamat", row.alamat);
+      formData.append("no_hp", row.no_hp);
+      formData.append("jabatan", row.jabatan);
+      formData.append("foto", row.foto);
+      return formData;
     },
-    setKelompok: async ({ page = 1, limit = 10, search, sortby, order }) => {
+    dtAnggota: [],
+    showAnggota: [],
+    setAnggota: async ({ page = 1, limit = 10, search, sortby, order }) => {
       try {
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "get",
-          url: `/kelompok`,
+          url: `/anggota`,
           headers: { Authorization: `Bearer ${token}` },
           params: {
             limit,
@@ -69,7 +71,7 @@ const useKelompok = create(
             order,
           },
         });
-        set((state) => ({ ...state, dtKelompok: response.data.data }));
+        set((state) => ({ ...state, dtAnggota: response.data.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -81,15 +83,16 @@ const useKelompok = create(
         };
       }
     },
-    setShowKelompok: async (id) => {
+    setShowAnggota: async (id) => {
       try {
         const token = await useLogin.getState().setToken();
         const response = await crud({
           method: "get",
-          url: `/kelompok/${id}`,
+          url: `/anggota/${id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
-        set((state) => ({ ...state, dtKelompok: response.data.data }));
+        console.log({ response });
+        set((state) => ({ ...state, showAnggota: response.data.data }));
         return {
           status: "berhasil",
           data: response.data,
@@ -102,21 +105,23 @@ const useKelompok = create(
       }
     },
     addData: async (row) => {
+      const formData = row?.foto ? get().setFormData(row) : row;
       try {
         const token = await useLogin.getState().setToken();
         const res = await crud({
           method: "post",
-          url: `/kelompok`,
+          url: `/anggota`,
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
-          data: row,
+          data: formData,
         });
-        set((prevState) => ({
-          dtKelompok: {
-            last_page: prevState.dtKelompok.last_page,
-            current_page: prevState.dtKelompok.current_page,
-            data: [res.data.data, ...prevState.dtKelompok.data],
+        set((prevState: any) => ({
+          dtAnggota: {
+            last_page: prevState.dtAnggota.last_page,
+            current_page: prevState.dtAnggota.current_page,
+            data: [res.data.data, ...prevState.dtAnggota.data],
           },
         }));
         return {
@@ -135,14 +140,14 @@ const useKelompok = create(
         const token = await useLogin.getState().setToken();
         const res = await crud({
           method: "delete",
-          url: `/kelompok/${id}`,
+          url: `/anggota/${id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
-        set((prevState) => ({
-          dtKelompok: {
-            last_page: prevState.dtKelompok.last_page,
-            current_page: prevState.dtKelompok.current_page,
-            data: prevState.dtKelompok.data.filter(
+        set((prevState: any) => ({
+          dtAnggota: {
+            last_page: prevState.dtAnggota.last_page,
+            current_page: prevState.dtAnggota.current_page,
+            data: prevState.dtAnggota.data.filter(
               (item: any) => item.id !== id
             ),
           },
@@ -159,19 +164,32 @@ const useKelompok = create(
       }
     },
     updateData: async (id, row) => {
+      delete row.id;
+      const formData = row?.foto ? get().setFormData(row) : row;
+      const token = await useLogin.getState().setToken();
+      const headersImg = {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      };
       try {
-        const token = await useLogin.getState().setToken();
         const response = await crud({
-          method: "PUT",
-          url: `/kelompok/${id}`,
-          headers: { Authorization: `Bearer ${token}` },
-          data: row,
+          url: `/anggota/${id}`,
+          method: "post",
+          headers: row?.foto
+            ? headersImg
+            : {
+                Authorization: `Bearer ${token}`,
+              },
+          data: formData,
+          params: {
+            _method: "PUT",
+          },
         });
-        set((prevState) => ({
-          dtKelompok: {
-            last_page: prevState.dtKelompok.last_page,
-            current_page: prevState.dtKelompok.current_page,
-            data: prevState.dtKelompok.data.map((item: any) => {
+        set((prevState: any) => ({
+          dtAnggota: {
+            last_page: prevState.dtAnggota.last_page,
+            current_page: prevState.dtAnggota.current_page,
+            data: prevState.dtAnggota.data.map((item: any) => {
               if (item.id === id) {
                 return {
                   ...item,
@@ -197,4 +215,4 @@ const useKelompok = create(
   }))
 );
 
-export default useKelompok;
+export default useAnggota;

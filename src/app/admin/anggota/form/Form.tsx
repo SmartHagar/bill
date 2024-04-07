@@ -6,11 +6,12 @@ import toastShow from "@/utils/toast-show";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import BodyForm from "./BodyForm";
-import useKelompok from "@/stores/crud/Kelompok";
-import BtnDefault from "@/components/button/BtnDefault";
-import KelompokTypes from "@/types/KelompokTypes";
-import submitData from "@/services/submitData";
+import { useSearchParams } from "next/navigation";
+import useAnggota from "@/stores/crud/Anggota";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
+import BtnDefault from "@/components/button/BtnDefault";
+import AnggotaTypes from "@/types/AnggotaKelTypes";
+import submitData from "@/services/submitData";
 
 type Props = {
   showModal: boolean;
@@ -19,10 +20,15 @@ type Props = {
 };
 
 const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
-  // store
-  const { addData, updateData } = useKelompok();
+  // get search params
+  const params = useSearchParams();
+  // get berita_acara_id
+  const berita_acara_id = params.get("berita_acara_id") || "";
   // state
-  const [isLoading, setIsLoading] = useState(false);
+  const [myFile, setMyFile] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // store
+  const { addData, updateData } = useAnggota();
   // hook form
   const {
     register,
@@ -31,27 +37,39 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
     control,
     formState: { errors },
     watch,
-  } = useForm<KelompokTypes>();
+  } = useForm<AnggotaTypes>();
 
   // reset form
   const resetForm = () => {
     setValue("id", "");
-    setValue("nm_kelompok", "");
+    setValue("nik", "");
+    setValue("nm_anggota", "");
+    setValue("jenkel", "");
+    setValue("jabatan", "");
+    setValue("no_hp", "");
+    setValue("alamat", "");
+    setValue("foto", "");
+    setMyFile(null);
   };
 
   // data edit
   useEffect(() => {
     if (dtEdit) {
       setValue("id", dtEdit.id);
-      setValue("nm_kelompok", dtEdit.nm_kelompok);
+      setValue("nik", dtEdit.nik);
+      setValue("nm_anggota", dtEdit.nm_anggota);
+      setValue("jenkel", dtEdit.jenkel);
+      setValue("jabatan", dtEdit.jabatan);
+      setValue("no_hp", dtEdit.no_hp);
+      setValue("alamat", dtEdit.alamat);
+      setValue("foto", dtEdit.foto);
     } else {
       resetForm();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showModal, dtEdit]);
   // simpan data
-  const onSubmit: SubmitHandler<KelompokTypes> = async (row) => {
-    console.log({ row });
+  const onSubmit: SubmitHandler<AnggotaTypes> = async (row) => {
     //  submit data
     submitData({
       row,
@@ -67,12 +85,13 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
 
   return (
     <ModalDefault
-      title="Form Kelompok"
+      title="Form Dosen"
       showModal={showModal}
       setShowModal={setShowModal}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputTextDefault name="id" register={register} type="hidden" />
+
         <div className="grid grid-cols-4 gap-2 mb-4">
           <BodyForm
             register={register}
@@ -82,6 +101,8 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
             watch={watch}
             setValue={setValue}
             showModal={showModal}
+            myFile={myFile}
+            setMyFile={setMyFile}
           />
         </div>
         <div>

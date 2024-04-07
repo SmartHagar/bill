@@ -1,16 +1,15 @@
 /** @format */
 "use client";
-import ButtonPrimary from "@/components/button/ButtonPrimary";
 import InputTextDefault from "@/components/input/InputTextDefault";
 import ModalDefault from "@/components/modal/ModalDefault";
 import toastShow from "@/utils/toast-show";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import BodyForm from "./BodyForm";
-import useDosen from "@/stores/crud/Dosen";
 import { useSearchParams } from "next/navigation";
-import useDetBeritaAcara from "@/stores/crud/DetBeritaAcara";
+import useAnggota from "@/stores/crud/Anggota";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
+import BtnDefault from "@/components/button/BtnDefault";
 
 type Props = {
   showModal: boolean;
@@ -38,7 +37,7 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
   const [myFile, setMyFile] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // store
-  const { addData, updateData } = useDetBeritaAcara();
+  const { addData, updateData } = useAnggota();
   // hook form
   const {
     register,
@@ -126,7 +125,7 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
           {isLoading ? (
             <LoadingSpiner />
           ) : (
-            <ButtonPrimary text="Simpan" onClick={handleSubmit(onSubmit)} />
+            <BtnDefault onClick={handleSubmit(onSubmit)}>Simpan</BtnDefault>
           )}
         </div>
       </form>
