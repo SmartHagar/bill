@@ -6,7 +6,6 @@ import toastShow from "@/utils/toast-show";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import BodyForm from "./BodyForm";
-import { useSearchParams } from "next/navigation";
 import useAnggota from "@/stores/crud/Anggota";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import BtnDefault from "@/components/button/BtnDefault";
@@ -20,10 +19,6 @@ type Props = {
 };
 
 const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
-  // get search params
-  const params = useSearchParams();
-  // get berita_acara_id
-  const berita_acara_id = params.get("berita_acara_id") || "";
   // state
   const [myFile, setMyFile] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -70,6 +65,8 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
   }, [showModal, dtEdit]);
   // simpan data
   const onSubmit: SubmitHandler<AnggotaTypes> = async (row) => {
+    // add user in dtEdit
+    dtEdit && (row.user_id = dtEdit.user_id);
     //  submit data
     submitData({
       row,
