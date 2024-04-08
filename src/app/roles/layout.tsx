@@ -4,6 +4,7 @@ import FooterComp from "@/components/footer/FooterComp";
 import HeaderComp from "@/components/header/HeaderComp";
 import Sidebar from "@/components/sidebar/Sidebar";
 import React, { ReactNode } from "react";
+import Auth from "./Auth";
 
 type Props = {
   children: ReactNode;
@@ -12,9 +13,10 @@ type Props = {
 const layout = ({ children }: Props) => {
   return (
     <div className="min-h-screen w-full flex bg-linear">
+      <Auth />
       {/* sidebar */}
       <div className="fixed left-0 top-0 bottom-0 lg:w-52 text-white hidden lg:block">
-        <Sidebar />
+        <Sidebar type="admin" />
       </div>
       <div className="lg:ml-52 flex flex-col min-h-screen grow overflow-hidden">
         {/* judul */}

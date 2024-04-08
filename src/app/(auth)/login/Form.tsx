@@ -38,7 +38,7 @@ const Form = (props: Props) => {
       if (!cekAuth?.error) {
         const role = cekAuth?.data?.role;
         // redirect to login
-        router.push(`/${role}`);
+        router.push(`/roles/${role}`);
       }
     }
     setIsLoading(false);
@@ -60,16 +60,16 @@ const Form = (props: Props) => {
       const { data } = res;
       Cookies.set("token", data.token);
       Cookies.set("role", data.role);
-      const petugas = JSON.stringify(data.petugas);
-      Cookies.set("petugas", petugas);
+      const anggota = JSON.stringify(data.anggota);
+      Cookies.set("anggota", anggota);
       // cek jika data pagawai ada
-      if (data?.pegawai) {
+      if (data?.anggota) {
         // convert json
-        const pegawai = JSON.stringify(data.pegawai);
-        console.log({ pegawai });
-        Cookies.set("pegawai", pegawai);
+        const anggota = JSON.stringify(data.anggota);
+        console.log({ anggota });
+        Cookies.set("anggota", anggota);
       }
-      router.push(`/${data.role}`);
+      router.push(`/roles/${data.role}`);
     }
     setTimeout(() => {
       setIsLoading(false);

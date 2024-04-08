@@ -104,9 +104,9 @@ const BodyForm: FC<Props> = ({
         errors={errors}
         name="jabatan"
         options={[
-          { value: "Anggota", label: "Anggota" },
-          { value: "Bendahara", label: "Bendahara" },
-          { value: "Ketua", label: "Ketua" },
+          { value: "anggota", label: "Anggota" },
+          { value: "bendahara", label: "Bendahara" },
+          { value: "ketua", label: "Ketua" },
         ]}
         addClass="col-span-4"
       />

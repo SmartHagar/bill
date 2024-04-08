@@ -10,8 +10,9 @@ import {
   BsLamp,
   BsPeople,
 } from "react-icons/bs";
-const createUrl = (path: string) => `/admin${path}`;
-const createUrlPetugas = (path: string) => `/petugas${path}`;
+const createUrl = (path: string) => `/roles/admin${path}`;
+const createUrlAnggota = (path: string) => `/roles/anggota${path}`;
+const createUrlBendahara = (path: string) => `/roles/bendahara${path}`;
 const ListMenu: MenuTypes[] = [
   {
     name: "Home",
@@ -25,24 +26,41 @@ const ListMenu: MenuTypes[] = [
   },
 ];
 
-const petugasMenu: MenuTypes[] = [
+const anggotaMenu: MenuTypes[] = [
   {
     name: "Home",
-    href: createUrlPetugas("/"),
+    href: createUrlAnggota("/"),
     icon: <BsHouseDoor />,
   },
   {
     name: "Pasien",
-    href: createUrlPetugas("/pasien"),
+    href: createUrlAnggota("/pasien"),
     icon: <BsPeople />,
   },
   {
     name: "Resep",
-    href: createUrlPetugas("/resep"),
+    href: createUrlAnggota("/resep"),
+    icon: <BsPeople />,
+  },
+];
+const bendaharaMenu: MenuTypes[] = [
+  {
+    name: "Home",
+    href: createUrlAnggota("/"),
+    icon: <BsHouseDoor />,
+  },
+  {
+    name: "Pasien",
+    href: createUrlAnggota("/pasien"),
+    icon: <BsPeople />,
+  },
+  {
+    name: "Resep",
+    href: createUrlAnggota("/resep"),
     icon: <BsPeople />,
   },
 ];
 
 export default ListMenu;
 
-export { petugasMenu };
+export { anggotaMenu, bendaharaMenu };

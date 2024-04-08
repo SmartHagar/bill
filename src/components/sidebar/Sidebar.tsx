@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import ListMenu, { petugasMenu } from "./ListMenu";
+import ListMenu, { anggotaMenu, bendaharaMenu } from "./ListMenu";
 import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ import LoadingSpiner from "../loading/LoadingSpiner";
 import handleLogout from "@/app/(auth)/logout/logout";
 
 type Props = {
-  type?: "admin" | "petugas" | "kepala gudang";
+  type?: "admin" | "anggota" | "bendahara";
 };
 
 const Sidebar: FC<Props> = ({ type = "admin" }) => {
@@ -38,8 +38,10 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
   useEffect(() => {
     if (type === "admin") {
       setMenus(ListMenu);
-    } else if (type === "petugas") {
-      setMenus(petugasMenu);
+    } else if (type === "anggota") {
+      setMenus(anggotaMenu);
+    } else if (type === "bendahara") {
+      setMenus(bendaharaMenu);
     }
     return () => {};
   }, [type]);
