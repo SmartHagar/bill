@@ -14,6 +14,7 @@ type Props = {
   errors?: any;
   control: any;
   addClass?: string;
+  readOnly?: boolean;
 };
 
 const InputRupiah: FC<Props> = ({
@@ -25,6 +26,7 @@ const InputRupiah: FC<Props> = ({
   errors,
   control,
   addClass,
+  readOnly,
 }) => {
   return (
     <div className={addClass}>
@@ -49,11 +51,11 @@ const InputRupiah: FC<Props> = ({
               prefix={"Rp. "}
               value={field.value} // Menggunakan field.value sebagai nilai default
               onValueChange={(values, sourceInfo) => {
-                console.log(values, sourceInfo);
                 // Setel nilai pada react-hook-form
                 field.onChange(values.floatValue || ""); // Gunakan values.floatValue jika tersedia
               }}
               className="w-full text-gray-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-secondary"
+              readOnly={readOnly}
             />
           )}
         />

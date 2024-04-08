@@ -17,7 +17,6 @@ const Auth: FC<Props> = (props: Props) => {
   const router = useRouter();
   const path = pathname?.split("/");
   const rolePath = path[2];
-  console.log({ rolePath });
   const { cekToken } = useLogin();
   const getCek = async () => {
     const res = await cekToken();

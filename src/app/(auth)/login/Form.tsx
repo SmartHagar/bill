@@ -60,12 +60,12 @@ const Form = (props: Props) => {
       const { data } = res;
       Cookies.set("token", data.token);
       Cookies.set("role", data.role);
-      const anggota = JSON.stringify(data.anggota);
+      const anggota = JSON.stringify(data.user.anggota);
       Cookies.set("anggota", anggota);
       // cek jika data pagawai ada
-      if (data?.anggota) {
+      if (data?.user.anggota) {
         // convert json
-        const anggota = JSON.stringify(data.anggota);
+        const anggota = JSON.stringify(data.user.anggota);
         console.log({ anggota });
         Cookies.set("anggota", anggota);
       }

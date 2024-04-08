@@ -32,6 +32,7 @@ type Props = {
   pekerjaan?: boolean;
   costume?: any;
   rowClick?: (data: any) => void;
+  sorter?: string;
 };
 
 const TablesDefault = (props: Props) => {
@@ -52,20 +53,38 @@ const TablesDefault = (props: Props) => {
   const sortBy = (name: string, index?: number) => {
     // simpan body table
     setBodyTable(name);
+    // get full url
+    const fullUrl = window.location.href;
+    // cek params
+    // cek params
+    const url = new URL(fullUrl);
+    const params = new URLSearchParams(url.search);
     // Jika nama yang diklik sama dengan nama sebelumnya, tambahkan 1 pada hitungan sebelumnya, jika tidak, mulai dari 1
     const newCount = name === sortby ? clickCount + 1 : 1;
     // Tentukan apakah urutan harus naik atau turun berdasarkan apakah hitungan ganjil atau genap
     const sortOrder = newCount % 2 === 0 ? "desc" : "asc";
+    // Hapus parameter sort sebelum menambahkan yang baru
+    params.delete("sortby");
+    params.delete("order");
+    // Tambahkan parameter sort baru
+    params.append("sortby", name);
+    params.append("order", sortOrder);
     // Memperbarui query string dengan sortby baru
-    router.push(`?sortby=${name}&order=${sortOrder}`);
+    url.search = params.toString();
+    router.push(url.toString());
     // Simpan jumlah klik yang baru
     setClickCount(newCount);
     // simpan order
     setOrder(sortOrder);
   };
+
   useEffect(() => {
-    return sortBy(sortby || "");
-  }, []);
+    // Jika sortby tidak ada, reset urutan ke default
+    if (props.sorter) {
+      sortBy(props.sorter);
+    }
+  }, [props.sorter]);
+
   return (
     <table className="w-full border-collapse text-left bg-white">
       <thead className="">

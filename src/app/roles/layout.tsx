@@ -13,7 +13,6 @@ type Props = {
 
 const layout = ({ children }: Props) => {
   const type = Cookies.get("role");
-  console.log({ type });
   return (
     <div className="min-h-screen w-full flex bg-linear">
       <Auth />

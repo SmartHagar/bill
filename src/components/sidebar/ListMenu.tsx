@@ -33,8 +33,8 @@ const anggotaMenu: MenuTypes[] = [
     icon: <BsHouseDoor />,
   },
   {
-    name: "Pasien",
-    href: createUrlAnggota("/pasien"),
+    name: "Pinjaman",
+    href: createUrlAnggota("/pinjaman"),
     icon: <BsPeople />,
   },
   {
