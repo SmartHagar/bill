@@ -8,21 +8,19 @@ import ModalDelete from "@/components/modal/ModalDelete";
 import { Toaster } from "react-hot-toast";
 import toastShow from "@/utils/toast-show";
 import InputTextSearch from "@/components/input/InputTextSearch";
-import useAnggota from "@/stores/crud/Anggota";
-import { useSearchParams } from "next/navigation";
-import { BASE_URL } from "@/services/baseURL";
-import LoadingSpiner from "@/components/loading/LoadingSpiner";
+import useSimpanan from "@/stores/crud/Simpanan";
 import BtnDefault from "@/components/button/BtnDefault";
-// anggota
+
 // type setDelete
 type Delete = {
   id?: number | string;
   isDelete: boolean;
 };
 
-const Anggota = () => {
+const AnggotaSimpan = ({ params }: { params: { anggota_id: string } }) => {
+  const anggota_id = parseInt(params.anggota_id);
   // store
-  const { removeData } = useAnggota();
+  const { removeData } = useSimpanan();
   // state
   const [showModal, setShowModal] = useState(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -43,7 +41,7 @@ const Anggota = () => {
   const setDelete = async ({ id, isDelete }: Delete) => {
     setIdDel(id);
     if (isDelete) {
-      const { data } = await removeData(idDel);
+      const { data } = await removeData(idDel as number);
       toastShow({
         event: data,
       });
@@ -59,6 +57,7 @@ const Anggota = () => {
           dtEdit={dtEdit}
           showModal={showModal}
           setShowModal={setShowModal}
+          anggota_id={anggota_id}
         />
         <ModalDelete
           showDel={showDelete}
@@ -67,7 +66,7 @@ const Anggota = () => {
         />
         {/* keterangan */}
         <div className="mb-4 flex justify-between">
-          <p>Silahkan Mengolah data Anggota</p>
+          <p>Silahkan Mengolah data Simpanan</p>
           <div>
             <BtnDefault onClick={handleTambah}>Tambah Data</BtnDefault>
           </div>
@@ -78,9 +77,14 @@ const Anggota = () => {
         />
       </div>
 
-      <ShowData setDelete={setDelete} setEdit={setEdit} search={search} />
+      <ShowData
+        setDelete={setDelete}
+        setEdit={setEdit}
+        search={search}
+        anggota_id={anggota_id}
+      />
     </div>
   );
 };
 
-export default Anggota;
+export default AnggotaSimpan;

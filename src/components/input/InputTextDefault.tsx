@@ -39,13 +39,21 @@ const InputTextDefault: FC<Props> = ({
 }) => {
   return (
     <div className={addClass}>
-      <label
-        htmlFor={name}
-        className="text-sm font-medium text-gray-700 tracking-wide"
-      >
-        {label}
-      </label>
-      {required && <span className="ml-1 text-red-600">*</span>}
+      {label && (
+        <>
+          <label
+            htmlFor={name}
+            className="text-sm font-medium text-gray-700 tracking-wide"
+          >
+            {label}
+          </label>
+          {required && <span className="ml-1 text-red-600">*</span>}
+          {!required && (
+            <span className="ml-1 text-gray-700 text-sm">(opsional)</span>
+          )}
+        </>
+      )}
+
       <div className="relative">
         <input
           className="w-full text-gray-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-secondary"

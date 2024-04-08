@@ -15,7 +15,7 @@ import LoadingSpiner from "../loading/LoadingSpiner";
 import handleLogout from "@/app/(auth)/logout/logout";
 
 type Props = {
-  type?: "admin" | "anggota" | "bendahara";
+  type?: string | "admin" | "anggota" | "bendahara";
 };
 
 const Sidebar: FC<Props> = ({ type = "admin" }) => {

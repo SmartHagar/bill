@@ -1,5 +1,6 @@
 /** @format */
-
+"use client";
+import Cookies from "js-cookie";
 import FooterComp from "@/components/footer/FooterComp";
 import HeaderComp from "@/components/header/HeaderComp";
 import Sidebar from "@/components/sidebar/Sidebar";
@@ -11,12 +12,14 @@ type Props = {
 };
 
 const layout = ({ children }: Props) => {
+  const type = Cookies.get("role");
+  console.log({ type });
   return (
     <div className="min-h-screen w-full flex bg-linear">
       <Auth />
       {/* sidebar */}
       <div className="fixed left-0 top-0 bottom-0 lg:w-52 text-white hidden lg:block">
-        <Sidebar type="admin" />
+        <Sidebar type={type} />
       </div>
       <div className="lg:ml-52 flex flex-col min-h-screen grow overflow-hidden">
         {/* judul */}

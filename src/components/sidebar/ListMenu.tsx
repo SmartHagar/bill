@@ -29,7 +29,7 @@ const ListMenu: MenuTypes[] = [
 const anggotaMenu: MenuTypes[] = [
   {
     name: "Home",
-    href: createUrlAnggota("/"),
+    href: createUrlAnggota(""),
     icon: <BsHouseDoor />,
   },
   {
@@ -46,17 +46,17 @@ const anggotaMenu: MenuTypes[] = [
 const bendaharaMenu: MenuTypes[] = [
   {
     name: "Home",
-    href: createUrlAnggota("/"),
+    href: createUrlBendahara(""),
     icon: <BsHouseDoor />,
   },
   {
-    name: "Pasien",
-    href: createUrlAnggota("/pasien"),
+    name: "Simpanan",
+    href: createUrlBendahara("/simpanan"),
     icon: <BsPeople />,
   },
   {
     name: "Resep",
-    href: createUrlAnggota("/resep"),
+    href: createUrlBendahara("/resep"),
     icon: <BsPeople />,
   },
 ];

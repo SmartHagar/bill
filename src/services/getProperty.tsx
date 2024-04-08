@@ -9,6 +9,7 @@ import showRupiah from "./rupiah";
 const getProperty = (obj: any, prop: any) => {
   const angkatan = obj?.thn_angkatan?.substring(2);
   const mhs_angkatan = obj?.mhs?.thn_angkatan?.substring(2);
+  const jmlh_simpanan = obj?.simpanan?.length;
   let parts = prop.split(".");
   if (Array.isArray(parts)) {
     let last = parts.length > 1 ? parts.pop() : parts;
@@ -25,7 +26,7 @@ const getProperty = (obj: any, prop: any) => {
     }
     if (
       prop === "tgl_masuk" ||
-      prop === "tgl_kadaluarsa" ||
+      prop === "tgl_simpanan" ||
       prop === "tgl_lahir"
     ) {
       return moment(obj).format("DD/MM/YYYY");
@@ -37,9 +38,13 @@ const getProperty = (obj: any, prop: any) => {
         )
       );
     }
-    if (prop === "harga") {
+    if (prop === "nominal") {
       return showRupiah(obj);
     }
+    if (prop === "jmlh_simpanan") {
+      return jmlh_simpanan;
+    }
+
     if (prop === "file") {
       return (
         obj && (
