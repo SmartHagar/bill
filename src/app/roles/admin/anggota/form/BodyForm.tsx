@@ -101,13 +101,14 @@ const BodyForm: FC<Props> = ({
         label="Jabatan"
         defaultOption="Jabatan"
         register={register}
-        errors={errors}
         name="jabatan"
         options={[
           { value: "anggota", label: "Anggota" },
           { value: "bendahara", label: "Bendahara" },
           { value: "ketua", label: "Ketua" },
         ]}
+        required
+        errors={errors.status}
         addClass="col-span-4"
       />
 

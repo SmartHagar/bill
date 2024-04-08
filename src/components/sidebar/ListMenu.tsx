@@ -55,8 +55,8 @@ const bendaharaMenu: MenuTypes[] = [
     icon: <BsPeople />,
   },
   {
-    name: "Resep",
-    href: createUrlBendahara("/resep"),
+    name: "Pinjaman",
+    href: createUrlBendahara("/pinjaman"),
     icon: <BsPeople />,
   },
 ];

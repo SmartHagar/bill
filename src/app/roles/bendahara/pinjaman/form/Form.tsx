@@ -17,10 +17,9 @@ type Props = {
   showModal: boolean;
   setShowModal: (data: boolean) => void;
   dtEdit: any;
-  anggota_id: number;
 };
 
-const Form = ({ showModal, setShowModal, dtEdit, anggota_id }: Props) => {
+const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
   const nowMoment = moment();
   // state
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,7 +39,7 @@ const Form = ({ showModal, setShowModal, dtEdit, anggota_id }: Props) => {
   // reset form
   const resetForm = () => {
     setValue("id", "");
-    setValue("anggota_id", anggota_id);
+    setValue("anggota_id", "");
     setValue("tgl_pinjam", nowMoment.format("YYYY-MM-DD"));
     setTgl_pinjam(nowMoment.format("MM/DD/YYYY"));
     setValue("nominal", 0);
@@ -58,6 +57,7 @@ const Form = ({ showModal, setShowModal, dtEdit, anggota_id }: Props) => {
       setValue("nominal", dtEdit.nominal);
       setValue("angsuran", dtEdit.angsuran);
       setValue("status", dtEdit.status);
+      setValue("lama_pinjam", dtEdit.lama_pinjam);
     } else {
       resetForm();
     }
@@ -65,8 +65,6 @@ const Form = ({ showModal, setShowModal, dtEdit, anggota_id }: Props) => {
   }, [showModal, dtEdit]);
   // simpan data
   const onSubmit: SubmitHandler<PinjamanTypes> = async (row) => {
-    // add anggota_id in row
-    row.anggota_id = anggota_id;
     console.log({ row });
     // return;
     //  submit data
