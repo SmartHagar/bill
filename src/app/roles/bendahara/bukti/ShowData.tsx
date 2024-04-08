@@ -4,8 +4,7 @@ import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import PaginationDefault from "@/components/pagination/PaginationDefault";
 import TablesDefault from "@/components/tables/TablesDefault";
 import React, { FC, useEffect, useState } from "react";
-import useAnggota from "@/stores/crud/Anggota";
-import { useSearchParams } from "next/navigation";
+import useTerimaPinjam from "@/stores/crud/TerimaPinjam";
 
 type DeleteProps = {
   id?: number | string;
@@ -19,19 +18,17 @@ type Props = {
 };
 
 const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
-  // get search params
-  const params = useSearchParams();
-  // get berita_acara_id
-  const berita_acara_id = params.get("berita_acara_id") || "";
   // store
-  const { setAnggota, dtAnggota } = useAnggota();
+  const { setTerimaPinjam, dtTerimaPinjam } = useTerimaPinjam();
   // state
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [dtDetail, setDtDetail] = useState<any>();
 
-  const fetchDataAnggota = async () => {
-    const res = await setAnggota({
+  const fetchDataTerimaPinjam = async () => {
+    const res = await setTerimaPinjam({
       page,
       limit,
       search,
@@ -39,7 +36,7 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
     setIsLoading(false);
   };
   useEffect(() => {
-    fetchDataAnggota();
+    fetchDataTerimaPinjam();
 
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,21 +44,17 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
   // ketika search berubah
   useEffect(() => {
     setPage(1);
-    fetchDataAnggota();
+    fetchDataTerimaPinjam();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   // table
-  const headTable = [
-    "No",
-    "Tgl. Pertemuan",
-    "Materi",
-    "Jumlah MHS",
-    "Sistem Belajar",
-    "Foto",
-    "Aksi",
+  const headTable = ["No", "Nama", "Tgl. Pinjam", "Bukti", "Aksi"];
+  const tableBodies = [
+    "pinjaman.anggota.nm_anggota",
+    "pinjaman.tgl_pinjam",
+    "bukti",
   ];
-  const tableBodies = ["tgl", "materi", "jmlh_mhs", "sistem", "foto"];
 
   return (
     <div className="flex-1 flex-col max-w-full h-full overflow-auto">
@@ -73,7 +66,7 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
             <TablesDefault
               headTable={headTable}
               tableBodies={tableBodies}
-              dataTable={dtAnggota.data}
+              dataTable={dtTerimaPinjam.data}
               page={page}
               limit={limit}
               setEdit={setEdit}
@@ -82,11 +75,11 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
               hapus={true}
             />
           </div>
-          {dtAnggota?.last_page > 1 && (
+          {dtTerimaPinjam?.last_page > 1 && (
             <div className="mt-4">
               <PaginationDefault
-                currentPage={dtAnggota?.current_page}
-                totalPages={dtAnggota?.last_page}
+                currentPage={dtTerimaPinjam?.current_page}
+                totalPages={dtTerimaPinjam?.last_page}
                 setPage={setPage}
               />
             </div>

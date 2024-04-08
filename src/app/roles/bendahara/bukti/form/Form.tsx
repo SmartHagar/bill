@@ -6,38 +6,24 @@ import toastShow from "@/utils/toast-show";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import BodyForm from "./BodyForm";
-import { useSearchParams } from "next/navigation";
-import useAnggota from "@/stores/crud/Anggota";
+import useTerimaPinjam from "@/stores/crud/TerimaPinjam";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import BtnDefault from "@/components/button/BtnDefault";
-
+import TerimaPinjamTypes from "@/types/TerimaPinjamTypes";
+import submitData from "@/services/submitData";
+// terimaPinjam
 type Props = {
   showModal: boolean;
   setShowModal: (data: boolean) => void;
   dtEdit: any;
 };
 
-type Inputs = {
-  id: number | string;
-  berita_acara_id: number | string;
-  tgl: string | Date;
-  materi: string;
-  jmlh_mhs: number | string;
-  foto: string;
-  sistem: string;
-};
-
 const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
-  // get search params
-  const params = useSearchParams();
-  // get berita_acara_id
-  const berita_acara_id = params.get("berita_acara_id") || "";
   // state
-  const [tgl, setTgl] = useState<string | Date>(new Date("01-01-1980"));
   const [myFile, setMyFile] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // store
-  const { addData, updateData } = useAnggota();
+  const { addData, updateData } = useTerimaPinjam();
   // hook form
   const {
     register,
@@ -46,16 +32,13 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
     control,
     formState: { errors },
     watch,
-  } = useForm<Inputs>();
+  } = useForm<TerimaPinjamTypes>();
 
   // reset form
   const resetForm = () => {
     setValue("id", "");
-    setValue("materi", "");
-    setValue("jmlh_mhs", "");
-    setValue("tgl", "");
-    setValue("foto", "");
-    setTgl("");
+    setValue("pinjaman_id", "");
+    setValue("bukti", "");
     setMyFile(null);
   };
 
@@ -63,38 +46,29 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
   useEffect(() => {
     if (dtEdit) {
       setValue("id", dtEdit.id);
-      setValue("materi", dtEdit.materi);
-      setValue("jmlh_mhs", dtEdit.jmlh_mhs);
-      setValue("tgl", dtEdit.tgl);
-      setTgl(new Date(dtEdit.tgl));
-      setValue("foto", dtEdit.foto);
-      setValue("sistem", dtEdit.sistem);
+      setValue("pinjaman_id", dtEdit.pinjaman_id);
+      setValue("bukti", dtEdit.bukti);
+      setMyFile(dtEdit.bukti);
     } else {
       resetForm();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showModal, dtEdit]);
   // simpan data
-  const onSubmit: SubmitHandler<Inputs> = async (row) => {
-    setIsLoading(true);
-    row.berita_acara_id = berita_acara_id;
+  const onSubmit: SubmitHandler<TerimaPinjamTypes> = async (row) => {
+    //  submit data
     console.log({ row });
-    // jika dtEdit tidak kosong maka update
-    if (dtEdit) {
-      const { data } = await updateData(dtEdit.id, row);
-      toastShow({
-        event: data,
-      });
-      setShowModal(false);
-    } else {
-      const { data } = await addData(row);
-      console.log({ data });
-      toastShow({
-        event: data,
-      });
-      data?.type !== "success" ? null : resetForm();
-    }
-    setIsLoading(false);
+    // return;
+    submitData({
+      row,
+      dtEdit,
+      setIsLoading,
+      setShowModal,
+      addData,
+      updateData,
+      resetForm,
+      toastShow,
+    });
   };
 
   return (
@@ -117,8 +91,6 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
             showModal={showModal}
             myFile={myFile}
             setMyFile={setMyFile}
-            tgl={tgl}
-            setTgl={setTgl}
           />
         </div>
         <div>

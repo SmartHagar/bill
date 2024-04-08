@@ -3,12 +3,14 @@ import MenuTypes from "@/types/MenuTypes";
 import {
   BsAsterisk,
   BsBandaid,
+  BsBank,
   BsBasket,
   BsBuildingAdd,
   BsBuildingDash,
   BsHouseDoor,
   BsLamp,
   BsPeople,
+  BsSafe,
 } from "react-icons/bs";
 const createUrl = (path: string) => `/roles/admin${path}`;
 const createUrlAnggota = (path: string) => `/roles/anggota${path}`;
@@ -52,12 +54,17 @@ const bendaharaMenu: MenuTypes[] = [
   {
     name: "Simpanan",
     href: createUrlBendahara("/simpanan"),
-    icon: <BsPeople />,
+    icon: <BsSafe />,
   },
   {
     name: "Pinjaman",
     href: createUrlBendahara("/pinjaman"),
-    icon: <BsPeople />,
+    icon: <BsBank />,
+  },
+  {
+    name: "Bukti Kirim",
+    href: createUrlBendahara("/bukti"),
+    icon: <BsBank />,
   },
 ];
 
