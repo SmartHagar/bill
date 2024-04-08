@@ -9,7 +9,7 @@ import BodyForm from "./BodyForm";
 import useAnggota from "@/stores/crud/Anggota";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import BtnDefault from "@/components/button/BtnDefault";
-import AnggotaTypes from "@/types/AnggotaKelTypes";
+import AnggotaTypes from "@/types/AnggotaTypes";
 import submitData from "@/services/submitData";
 
 type Props = {

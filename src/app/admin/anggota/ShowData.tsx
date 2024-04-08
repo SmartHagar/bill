@@ -5,6 +5,10 @@ import PaginationDefault from "@/components/pagination/PaginationDefault";
 import TablesDefault from "@/components/tables/TablesDefault";
 import React, { FC, useEffect, useState } from "react";
 import useAnggota from "@/stores/crud/Anggota";
+import AnggotaTypes from "@/types/AnggotaTypes";
+import { BsInfo, BsInfoCircle } from "react-icons/bs";
+import ModalDefault from "@/components/modal/ModalDefault";
+import Detail from "./Detail";
 
 type DeleteProps = {
   id?: number | string;
@@ -24,6 +28,8 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [dtDetail, setDtDetail] = useState<any>();
 
   const fetchDataAnggota = async () => {
     const res = await setAnggota({
@@ -67,9 +73,30 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
     "jabatan",
     "foto",
   ];
+  const costume = (row: AnggotaTypes) => {
+    return (
+      <BsInfoCircle
+        className="self-center cursor-pointer select-none"
+        onClick={() => handleDetail(row)}
+      />
+    );
+  };
+
+  const handleDetail = (row: AnggotaTypes) => {
+    setDtDetail(row);
+    setShowModal(true);
+  };
 
   return (
     <div className="flex-1 flex-col max-w-full h-full overflow-auto">
+      {/* detail */}
+      <ModalDefault
+        showModal={showModal}
+        setShowModal={setShowModal}
+        title="Detail Anggota"
+      >
+        <Detail dtDetail={dtDetail} />
+      </ModalDefault>
       {isLoading ? (
         <LoadingSpiner />
       ) : (
@@ -85,6 +112,7 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
               setDelete={setDelete}
               ubah={true}
               hapus={true}
+              costume={costume}
             />
           </div>
           {dtAnggota?.last_page > 1 && (

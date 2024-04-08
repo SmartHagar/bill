@@ -11,12 +11,12 @@ type Props = {
 
 const layout = ({ children }: Props) => {
   return (
-    <div className="min-h-screen flex bg-linear">
+    <div className="min-h-screen w-full flex bg-linear">
       {/* sidebar */}
       <div className="fixed left-0 top-0 bottom-0 lg:w-52 text-white hidden lg:block">
         <Sidebar />
       </div>
-      <div className="lg:ml-52 flex flex-col min-h-screen w-full">
+      <div className="lg:ml-52 flex flex-col min-h-screen grow overflow-hidden">
         {/* judul */}
         <div className="text-white h-10 flex items-center justify-center">
           <HeaderComp />

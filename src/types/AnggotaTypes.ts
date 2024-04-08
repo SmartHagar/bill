@@ -1,5 +1,8 @@
 /** @format */
 
+import UserTypes from "./UserTypes";
+
+// anggota
 interface AnggotaTypes {
   id: string | number;
   user_id: string | number;
@@ -10,6 +13,7 @@ interface AnggotaTypes {
   no_hp: string;
   jabatan: string;
   foto: string;
+  user?: UserTypes;
 }
 
 export default AnggotaTypes;
