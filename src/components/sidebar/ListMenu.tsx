@@ -40,8 +40,8 @@ const anggotaMenu: MenuTypes[] = [
     icon: <BsPeople />,
   },
   {
-    name: "Resep",
-    href: createUrlAnggota("/resep"),
+    name: "Angsuran",
+    href: createUrlAnggota("/pembayaran"),
     icon: <BsPeople />,
   },
 ];
@@ -64,6 +64,11 @@ const bendaharaMenu: MenuTypes[] = [
   {
     name: "Bukti Kirim",
     href: createUrlBendahara("/bukti"),
+    icon: <BsBank />,
+  },
+  {
+    name: "Pembayaran",
+    href: createUrlBendahara("/pembayaran"),
     icon: <BsBank />,
   },
 ];

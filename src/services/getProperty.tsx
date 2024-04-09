@@ -34,11 +34,17 @@ const getProperty = (obj: any, prop: any) => {
       prop === "tgl_masuk" ||
       prop === "tgl_simpanan" ||
       prop === "tgl_lahir" ||
-      prop === "tgl_pinjam"
+      prop === "tgl_pinjam" ||
+      prop === "tgl_bayar"
     ) {
       return moment(obj).format("DD/MM/YYYY");
     }
-    if (prop === "gambar" || prop === "foto" || prop === "bukti") {
+    if (
+      prop === "gambar" ||
+      prop === "foto" ||
+      prop === "bukti" ||
+      prop === "bukti_bayar"
+    ) {
       return (
         obj && (
           <Image src={`${BASE_URL}/${obj}`} width={100} height={100} alt="" />
