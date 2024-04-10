@@ -8,6 +8,8 @@ import usePembayaran from "@/stores/crud/Pembayaran";
 import PembayaranTypes from "@/types/PembayaranTypes";
 import { BsInfo, BsInfoCircle } from "react-icons/bs";
 import ModalDefault from "@/components/modal/ModalDefault";
+import slide from "./slide";
+import LightPlugins from "@/components/lightBox/LightPlugins";
 
 type DeleteProps = {
   id?: number | string;
@@ -55,8 +57,17 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search, setTambah }) => {
   const headTable = ["No", "Tgl. Angsuran", "Status", "Bukti Pembayaran"];
   const tableBodies = ["tgl_bayar", "status_bayar", "bukti_bayar"];
 
+  const [slides, setSlides] = useState<any>();
+  const [indexBox, setIndexBox] = useState<number>(-1);
+  useEffect(() => {
+    setSlides(slide(dtPembayaran.data));
+  }, [dtPembayaran.data]);
+
   return (
     <div className="flex-1 flex-col max-w-full h-full overflow-auto">
+      {/* lightBox */}
+      <LightPlugins index={indexBox} setIndex={setIndexBox} slides={slides} />
+      {/* table */}
       {isLoading ? (
         <LoadingSpiner />
       ) : (

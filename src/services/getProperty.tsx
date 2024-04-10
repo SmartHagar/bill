@@ -6,7 +6,7 @@ import Image from "next/image";
 import moment from "moment";
 import showRupiah from "./rupiah";
 
-const getProperty = (obj: any, prop: any) => {
+const getProperty = (obj: any, prop: any, index: number, setIndexBox: any) => {
   const angkatan = obj?.thn_angkatan?.substring(2);
   const mhs_angkatan = obj?.mhs?.thn_angkatan?.substring(2);
   const jmlh_simpanan = obj?.simpanan;
@@ -47,7 +47,15 @@ const getProperty = (obj: any, prop: any) => {
     ) {
       return (
         obj && (
-          <Image src={`${BASE_URL}/${obj}`} width={100} height={100} alt="" />
+          <Image
+            src={`${BASE_URL}/${obj}`}
+            loading="lazy"
+            width={70}
+            height={70}
+            alt=""
+            className="cursor-pointer"
+            onClick={setIndexBox ? () => setIndexBox(index) : undefined}
+          />
         )
       );
     }

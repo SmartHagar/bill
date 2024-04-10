@@ -9,6 +9,8 @@ import AnggotaTypes from "@/types/AnggotaTypes";
 import { BsInfo, BsInfoCircle } from "react-icons/bs";
 import ModalDefault from "@/components/modal/ModalDefault";
 import Detail from "./Detail";
+import slide from "./slide";
+import LightPlugins from "../../../../components/lightBox/LightPlugins";
 
 type DeleteProps = {
   id?: number | string;
@@ -30,6 +32,8 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [dtDetail, setDtDetail] = useState<any>();
+  const [indexBox, setIndexBox] = useState<number>(-1);
+  const [slides, setSlides] = useState<any>();
 
   const fetchDataAnggota = async () => {
     const res = await setAnggota({
@@ -81,12 +85,13 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
       />
     );
   };
-
   const handleDetail = (row: AnggotaTypes) => {
     setDtDetail(row);
     setShowModal(true);
   };
-
+  useEffect(() => {
+    setSlides(slide(dtAnggota.data));
+  }, [dtAnggota.data]);
   return (
     <div className="flex-1 flex-col max-w-full h-full overflow-auto">
       {/* detail */}
@@ -97,6 +102,9 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
       >
         <Detail dtDetail={dtDetail} />
       </ModalDefault>
+      {/* lightBox */}
+      <LightPlugins index={indexBox} setIndex={setIndexBox} slides={slides} />
+      {/* table */}
       {isLoading ? (
         <LoadingSpiner />
       ) : (
@@ -113,6 +121,7 @@ const ShowData: FC<Props> = ({ setDelete, setEdit, search }) => {
               ubah={true}
               hapus={true}
               costume={costume}
+              setIndexBox={setIndexBox}
             />
           </div>
           {dtAnggota?.last_page > 1 && (

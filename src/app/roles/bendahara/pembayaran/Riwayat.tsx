@@ -12,6 +12,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import slide from "./slide";
+import LightPlugins from "@/components/lightBox/LightPlugins";
 
 type Props = {
   setModalRiwayat: Dispatch<SetStateAction<boolean>>;
@@ -38,25 +40,45 @@ const Riwayat: FC<Props> = ({ setModalRiwayat, modalRiwayat }) => {
       fetchData("lunas");
     }
   }, [fetchData, modalRiwayat]);
-
-  console.log({ dtPembayaran });
   // table
-  const headTable = ["No", "Tgl. Angsuran", "Status", "Bukti Pembayaran"];
-  const tableBodies = ["tgl_bayar", "status_bayar", "bukti_bayar"];
+  const headTable = [
+    "No",
+    "Nama",
+    "Tgl. Angsuran",
+    "Status",
+    "Bukti Pembayaran",
+  ];
+  const tableBodies = [
+    "terima_pinjam.pinjaman.anggota.nm_anggota",
+    "tgl_bayar",
+    "status_bayar",
+    "bukti_bayar",
+  ];
+
+  const [slides, setSlides] = useState<any>();
+  const [indexBox, setIndexBox] = useState<number>(-1);
+  useEffect(() => {
+    setSlides(slide(dtPembayaran.data));
+  }, [dtPembayaran.data]);
+
   return (
     <ModalDefault
       setShowModal={setModalRiwayat}
       showModal={modalRiwayat}
       title="Riwayat Pembayaran"
     >
+      {/* lightBox */}
+      <LightPlugins index={indexBox} setIndex={setIndexBox} slides={slides} />
+      {/* table */}
       <TablesDefault
         headTable={headTable}
         tableBodies={tableBodies}
         dataTable={dtPembayaran.data}
         page={page}
         limit={limit}
-        ubah={true}
+        ubah={false}
         hapus={false}
+        setIndexBox={setIndexBox}
       />
       {dtPembayaran?.last_page > 1 && (
         <div className="mt-4">

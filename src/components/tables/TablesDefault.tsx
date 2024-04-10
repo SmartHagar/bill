@@ -33,6 +33,7 @@ type Props = {
   costume?: any;
   rowClick?: (data: any) => void;
   sorter?: string;
+  setIndexBox?: (data: number) => void;
 };
 
 const TablesDefault = (props: Props) => {
@@ -85,6 +86,10 @@ const TablesDefault = (props: Props) => {
     }
   }, [props.sorter]);
 
+  const handleRow = (row: any) => {
+    props.rowClick && props.rowClick(row);
+  };
+
   return (
     <table className="w-full border-collapse text-left bg-white">
       <thead className="">
@@ -126,20 +131,21 @@ const TablesDefault = (props: Props) => {
         {props.dataTable &&
           props.dataTable.map((row: any, index) => {
             const { id } = row;
+            const dtIndex = index;
             return (
               <tr
                 key={index}
                 className={`${
                   props.rowClick && "cursor-pointer hover:bg-green/[0.2]"
                 }`}
-                onClick={() => props.rowClick && props.rowClick(row)}
+                onClick={() => handleRow(row)}
               >
                 <td className="px-6 py-4 rounded-l-xl">{showNo(index)}</td>
                 {/* loop td */}
                 {props.tableBodies.map((column, index) => {
                   return (
                     <td key={index} className={`px-6 py-4 whitespace-nowrap`}>
-                      {getProperty(row, column)}
+                      {getProperty(row, column, dtIndex, props.setIndexBox)}
                     </td>
                   );
                 })}
