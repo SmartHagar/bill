@@ -10,6 +10,8 @@ import toastShow from "@/utils/toast-show";
 import InputTextSearch from "@/components/input/InputTextSearch";
 import usePembayaran from "@/stores/crud/Pembayaran";
 import BtnDefault from "@/components/button/BtnDefault";
+import ModalDefault from "@/components/modal/ModalDefault";
+import Riwayat from "./Riwayat";
 
 // type setDelete
 type Delete = {
@@ -27,6 +29,7 @@ const Pembayaran = () => {
   const [dtEdit, setDtEdit] = useState<any>();
   const [search, setSearch] = useState("");
   const [tambah, setTambah] = useState(false);
+  const [modalRiwayat, setModalRiwayat] = useState(false);
 
   const handleTambah = () => {
     setShowModal(true);
@@ -49,6 +52,8 @@ const Pembayaran = () => {
     } else setShowDelete(true);
   };
 
+  // show detail
+
   return (
     <div className="flex flex-col h-full">
       <div>
@@ -63,6 +68,10 @@ const Pembayaran = () => {
           setShowDel={setShowDelete}
           setDelete={setDelete}
         />
+        <Riwayat
+          setModalRiwayat={setModalRiwayat}
+          modalRiwayat={modalRiwayat}
+        />
         {/* keterangan */}
         <div className="mb-4 flex justify-between">
           <p>Silahkan Mengolah data Pembayaran</p>
@@ -71,6 +80,12 @@ const Pembayaran = () => {
               <BtnDefault onClick={handleTambah}>Tambah Data</BtnDefault>
             </div>
           )}
+          <BtnDefault
+            onClick={() => setModalRiwayat(true)}
+            addClass="bg-blue text-white"
+          >
+            Riwayat
+          </BtnDefault>
         </div>
         <InputTextSearch
           placeholder="Cari Data"
