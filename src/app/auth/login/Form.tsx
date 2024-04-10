@@ -81,7 +81,7 @@ const Form = (props: Props) => {
   return (
     <div className="px-4 py-2 flex flex-col justify-between h-full">
       <div className="flex flex-col justify-center grow">
-        <h1 className="font-bold text-center text-2xl mb-5">Your Logo</h1>
+        {/* <h1 className="font-bold text-center text-2xl mb-5">Your Logo</h1> */}
         {error && <p className="text-red-600 text-center">{error}</p>}
         <form action="">
           <div className="pb-2 pt-4">
@@ -117,10 +117,10 @@ const Form = (props: Props) => {
           </div>
         </form>
       </div>
-      <Link href="/" className="py-5">
+      <Link href="/" className=" text-dark-blue bg-gray-200 rounded-lg ">
         <div className="grid grid-cols-2 gap-1">
           <div className="text-center sm:text-left whitespace-nowrap">
-            <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+            <button className="transition duration-200 mx-5 px-5 py-2 cursor-pointer font-normal text-sm rounded-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

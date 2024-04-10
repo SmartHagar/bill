@@ -8,13 +8,11 @@ type Props = {};
 
 const Login = (props: Props) => {
   return (
-    <div className="min-h-screen flex">
-      <div className="bg-white w-full md:max-w-md">
+    <div className="min-h-screen flex bg-login  bg-cover bg-center">
+      <div className="bg-white/[0.1] backdrop-blur-sm w-full md:max-w-md">
         <Form />
       </div>
-      <div className="border border-blue w-full bg-blue hidden md:flex">
-        hallo
-      </div>
+      <div className=" w-full hidden md:flex"></div>
     </div>
   );
 };

@@ -14,6 +14,7 @@ const config: Config = {
       backgroundImage: {
         linear:
           "linear-gradient(77deg, rgba(10,38,64,1) 16%, rgba(28,61,91,1) 79%)",
+        login: "url('/images/bg-login.png')",
       },
       colors,
     },
