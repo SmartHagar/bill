@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import SubMenu from "./SubMenu";
 import LoadingSpiner from "../loading/LoadingSpiner";
-import handleLogout from "@/app/(auth)/logout/logout";
+import handleLogout from "@/app/auth/logout/logout";
 
 type Props = {
   type?: string | "admin" | "anggota" | "bendahara";

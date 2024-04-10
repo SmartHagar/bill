@@ -22,7 +22,7 @@ const Auth: FC<Props> = (props: Props) => {
     const res = await cekToken();
     if (res?.error) {
       // redirect to login
-      router.push("/login");
+      router.push("/auth/login");
     } else {
       const role = Cookies.get("role");
       if (role !== rolePath) {
