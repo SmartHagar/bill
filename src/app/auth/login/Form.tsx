@@ -117,7 +117,10 @@ const Form = (props: Props) => {
           </div>
         </form>
       </div>
-      <Link href="/" className=" text-dark-blue bg-gray-200 rounded-lg ">
+      <Link
+        href="/"
+        className=" text-dark-blue bg-gray-200/[0.2] backdrop-blur-lg rounded-lg hover:bg-gray-200"
+      >
         <div className="grid grid-cols-2 gap-1">
           <div className="text-center sm:text-left whitespace-nowrap">
             <button className="transition duration-200 mx-5 px-5 py-2 cursor-pointer font-normal text-sm rounded-lg">
