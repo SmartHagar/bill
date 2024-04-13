@@ -14,7 +14,7 @@ const handleLogout = async ({ setLogout, setLoadLogout, route }: Props) => {
     Cookies.remove("token");
     Cookies.remove("role");
     Cookies.remove("petugas");
-    return route.push("/login");
+    return route.push("/auth/login");
   }
 };
 
