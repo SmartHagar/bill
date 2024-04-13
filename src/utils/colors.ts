@@ -5,9 +5,9 @@
 // #FFFFFF
 
 const colors = {
-  "dark-blue": "#0A2640",
-  blue: "#1C3D5B",
-  green: "#69E6A6",
+  "my-dark-blue": "#0A2640",
+  "my-blue": "#1C3D5B",
+  "my-green": "#69E6A6",
   white: "#FFFFFF",
   black: "#000000",
 };
