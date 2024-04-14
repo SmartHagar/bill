@@ -2,7 +2,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { BsKey } from "react-icons/bs";
-import { Link } from "react-scroll";
+import Link from "next/link";
+import { Link as ScrollLink } from "react-scroll";
+
 type Props = {};
 
 const HeaderNav = (props: Props) => {
@@ -13,9 +15,6 @@ const HeaderNav = (props: Props) => {
     const handleScroll = () => {
       // Mendapatkan nilai Y dari scroll
       const newScrollY = window.scrollY || window.pageYOffset;
-
-      // Logika atau aksi yang ingin Anda lakukan berdasarkan nilai Y
-      console.log("Posisi scroll Y:", newScrollY);
       // Memperbarui nilai scrollY dalam state
       setScrollY(newScrollY);
     };
@@ -63,7 +62,7 @@ const HeaderNav = (props: Props) => {
           >
             <ul id="navbar-navlist" className="navbar-nav">
               <li className="nav-item">
-                <Link
+                <ScrollLink
                   to="home"
                   className="nav-link"
                   spy={true}
@@ -71,11 +70,11 @@ const HeaderNav = (props: Props) => {
                   duration={dutation}
                 >
                   Home
-                </Link>
+                </ScrollLink>
               </li>
 
               <li className="nav-item">
-                <Link
+                <ScrollLink
                   to="kegiatan"
                   className="nav-link"
                   spy={true}
@@ -83,11 +82,11 @@ const HeaderNav = (props: Props) => {
                   duration={dutation}
                 >
                   Kegiatan
-                </Link>
+                </ScrollLink>
               </li>
 
               <li className="nav-item">
-                <Link
+                <ScrollLink
                   to="anggota"
                   className="nav-link"
                   spy={true}
@@ -95,7 +94,7 @@ const HeaderNav = (props: Props) => {
                   duration={dutation}
                 >
                   Anggota
-                </Link>
+                </ScrollLink>
               </li>
             </ul>
             <div className="lg:hidden flex items-center pt-4 mt-4 lg:pt-0 lg:mt-0 border-t border-gray-200 lg:border-none">
@@ -105,12 +104,13 @@ const HeaderNav = (props: Props) => {
               </a>
             </div>
           </div>
-          <div className="hidden lg:flex items-center">
-            <a href="#" className="nav-btn">
-              <BsKey className="h-5 w-5 me-2" />
-              Login
-            </a>
-          </div>
+          <Link
+            href="/auth/login"
+            className="hidden lg:flex items-center bg-blue-500 px-4 py-2 rounded-lg text-white cursor-pointer"
+          >
+            <BsKey className="h-5 w-5 me-2" />
+            Login
+          </Link>
         </nav>
       </div>
     </header>
