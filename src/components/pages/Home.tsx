@@ -16,7 +16,7 @@ const Home = (props: Props) => {
           <div className="flex justify-center mt-6">
             <div className="max-w-2xl">
               <Reveal>
-                <h1 className="text-5xl/tight font-bold mb-10 bg-gradient-to-r from-my-blue via-blue-600 to-my-dark-blue text-transparent bg-clip-text">
+                <h1 className="text-5xl/tight font-bold mb-10 bg-gradient-to-r from-blue via-light-blue to-dark-blue text-transparent bg-clip-text">
                   Selamat Datang di Website KOKENAT
                 </h1>
               </Reveal>

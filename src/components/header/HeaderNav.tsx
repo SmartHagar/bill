@@ -106,7 +106,7 @@ const HeaderNav = (props: Props) => {
           </div>
           <Link
             href="/auth/login"
-            className="hidden lg:flex items-center bg-blue-500 px-4 py-2 rounded-lg text-white cursor-pointer"
+            className="hidden lg:flex items-center bg-light-blue px-4 py-2 rounded-lg text-white cursor-pointer"
           >
             <BsKey className="h-5 w-5 me-2" />
             Login
