@@ -4,7 +4,7 @@ import BtnDefault from "@/components/button/BtnDefault";
 import InputTextDefault from "@/components/input/InputTextDefault";
 import useLogin from "@/stores/auth/login";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";

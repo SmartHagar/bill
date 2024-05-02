@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
 type Props = {
   children?: ReactNode;
@@ -12,13 +12,13 @@ type Props = {
 const BtnDefault: FC<Props> = ({
   children,
   onClick,
-  addClass = "bg-green hover:bg-green/80 text-dark-blue",
+  addClass,
   type = "button",
 }) => {
   return (
     <button
       type={type}
-      className={`${addClass} rounded-lg text-sm px-5 py-2.5 me-2 mb-2`}
+      className={`${addClass} bg-green hover:bg-green/80 text-dark-blue rounded-lg text-sm px-5 py-2.5 me-2 mb-2`}
       onClick={onClick}
     >
       {children}
