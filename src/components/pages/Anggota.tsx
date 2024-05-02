@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,10 +11,23 @@ import "./styles.css";
 
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
+import useAnggotaApi from "@/stores/api/Anggota";
+import { useEffect } from "react";
+import AnggotaTypes from "@/types/AnggotaTypes";
+import Image from "next/image";
+import { BASE_URL } from "@/services/baseURL";
 
 type Props = {};
 
-const Anggota = (props: Props) => {
+const Anggota = () => {
+  // store
+  const { setAnggotaAll, dtAnggota } = useAnggotaApi();
+
+  useEffect(() => {
+    setAnggotaAll({});
+  }, [setAnggotaAll]);
+
+  console.log({ dtAnggota });
   return (
     <div id="anggota" className="pt-24 bg-slate-50 min-h-screen flex">
       <div className="container overflow-hidden flex flex-col grow">
@@ -40,15 +52,23 @@ const Anggota = (props: Props) => {
             modules={[Pagination, Autoplay]}
             className="mySwiper"
           >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
-            <SwiperSlide>Slide 5</SwiperSlide>
-            <SwiperSlide>Slide 6</SwiperSlide>
-            <SwiperSlide>Slide 7</SwiperSlide>
-            <SwiperSlide>Slide 8</SwiperSlide>
-            <SwiperSlide>Slide 9</SwiperSlide>
+            {dtAnggota?.data &&
+              dtAnggota?.data?.map((item: AnggotaTypes) => (
+                <SwiperSlide key={item.id}>
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={`${BASE_URL}/${item.foto}`}
+                      alt="anggota"
+                      fill
+                    />
+                    <div className=" z-10 absolute bottom-0 left-0 w-full bg-black/50">
+                      <p className="text-center text-white z-50">
+                        {item.nm_anggota}
+                      </p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </div>

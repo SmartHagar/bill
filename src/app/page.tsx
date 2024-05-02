@@ -1,16 +1,16 @@
 /** @format */
 "use client";
 import "@/assets/css/style.min.css";
+import FooterComp from "@/components/footer/FooterComp";
 import HeaderNav from "@/components/header/HeaderNav";
 import Anggota from "@/components/pages/Anggota";
 import Home from "@/components/pages/Home";
 import Kegiatan from "@/components/pages/Kegiatan";
-import React from "react";
 import { Element } from "react-scroll";
 
 type Props = {};
 
-const page = (props: Props) => {
+const HomePage = (props: Props) => {
   return (
     <div>
       {/* header */}
@@ -27,8 +27,12 @@ const page = (props: Props) => {
       <Element name="anggota">
         <Anggota />
       </Element>
+      {/* footer */}
+      <div className="h-11 items-center flex border-t mt-8">
+        <FooterComp />
+      </div>
     </div>
   );
 };
 
-export default page;
+export default HomePage;

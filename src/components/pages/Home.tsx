@@ -1,16 +1,12 @@
 /** @format */
 
 import Reveal from "@/utils/Reveal";
-import React from "react";
 
 type Props = {};
 
 const Home = (props: Props) => {
   return (
-    <section
-      id="home"
-      className="relative overflow-hidden pt-40 pb-96 bg-gradient-to-r from-blue-100 to-blue-50 bg-opacity-50"
-    >
+    <section className="relative overflow-hidden pt-40 pb-96 bg-gradient-to-r from-blue-100 to-blue-50 bg-opacity-50">
       <div className="container relative">
         <div className="text-center">
           <div className="flex justify-center mt-6">
