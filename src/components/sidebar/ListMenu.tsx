@@ -1,17 +1,6 @@
 /** @format */
 import MenuTypes from "@/types/MenuTypes";
-import {
-  BsAsterisk,
-  BsBandaid,
-  BsBank,
-  BsBasket,
-  BsBuildingAdd,
-  BsBuildingDash,
-  BsHouseDoor,
-  BsLamp,
-  BsPeople,
-  BsSafe,
-} from "react-icons/bs";
+import { BsBank, BsHouseDoor, BsPeople, BsSafe } from "react-icons/bs";
 const createUrl = (path: string) => `/roles/admin${path}`;
 const createUrlAnggota = (path: string) => `/roles/anggota${path}`;
 const createUrlBendahara = (path: string) => `/roles/bendahara${path}`;
@@ -24,6 +13,11 @@ const ListMenu: MenuTypes[] = [
   {
     name: "Anggota",
     href: createUrl("/anggota"),
+    icon: <BsPeople />,
+  },
+  {
+    name: "Kegiatan",
+    href: createUrl("/kegiatan"),
     icon: <BsPeople />,
   },
 ];
