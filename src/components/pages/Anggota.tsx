@@ -27,7 +27,6 @@ const Anggota = () => {
     setAnggotaAll({});
   }, [setAnggotaAll]);
 
-  console.log({ dtAnggota });
   return (
     <div id="anggota" className="pt-24 bg-slate-50 min-h-screen flex">
       <div className="container overflow-hidden flex flex-col grow">
