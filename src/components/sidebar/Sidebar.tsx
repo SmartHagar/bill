@@ -1,6 +1,6 @@
 /** @format */
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ListMenu, { anggotaMenu, bendaharaMenu } from "./ListMenu";
 import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
@@ -8,8 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 import BtnDefault from "../button/BtnDefault";
 import useLogout from "@/stores/auth/logout";
 import MenuTypes from "@/types/MenuTypes";
-import Cookies from "js-cookie";
-import Image from "next/image";
 import SubMenu from "./SubMenu";
 import LoadingSpiner from "../loading/LoadingSpiner";
 import handleLogout from "@/app/auth/logout/logout";
@@ -150,7 +148,6 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
             ) : (
               <div className="absolute bottom-4 flex justify-center left-0 right-0">
                 <BtnDefault
-                  addClass="bg-green text-dark-blue"
                   onClick={() =>
                     handleLogout({ setLogout, setLoadLogout, route })
                   }
