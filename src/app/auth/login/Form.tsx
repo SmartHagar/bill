@@ -4,7 +4,7 @@ import BtnDefault from "@/components/button/BtnDefault";
 import InputTextDefault from "@/components/input/InputTextDefault";
 import useLogin from "@/stores/auth/login";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
@@ -32,7 +32,7 @@ const Form = (props: Props) => {
   } = useForm<Inputs>();
 
   // jika sudah login
-  const fetchAuth = async () => {
+  const fetchAuth = useCallback(async () => {
     const token = Cookies.get("token");
     if (token) {
       const cekAuth = await cekToken();
@@ -44,12 +44,12 @@ const Form = (props: Props) => {
       }
     }
     setIsLoading(false);
-  };
+  }, [cekToken, router]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       fetchAuth();
     }
-  }, []);
+  }, [fetchAuth]);
 
   const onSubmit: SubmitHandler<Inputs> = async (row) => {
     setIsLoading(true);

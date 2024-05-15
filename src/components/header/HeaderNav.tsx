@@ -1,8 +1,7 @@
 /** @format */
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsKey } from "react-icons/bs";
-import Link from "next/link";
 import { Link as ScrollLink } from "react-scroll";
 
 type Props = {};
@@ -104,13 +103,13 @@ const HeaderNav = (props: Props) => {
               </a>
             </div>
           </div>
-          <Link
+          <a
             href="/auth/login"
             className="hidden lg:flex items-center bg-light-blue px-4 py-2 rounded-lg text-white cursor-pointer"
           >
             <BsKey className="h-5 w-5 me-2" />
             Login
-          </Link>
+          </a>
         </nav>
       </div>
     </header>
