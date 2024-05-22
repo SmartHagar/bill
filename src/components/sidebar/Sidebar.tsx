@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 import { FC, useEffect, useState } from "react";
-import ListMenu, { anggotaMenu, bendaharaMenu } from "./ListMenu";
+import ListMenu, { anggotaMenu, bendaharaMenu, ketuaMenu } from "./ListMenu";
 import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import LoadingSpiner from "../loading/LoadingSpiner";
 import handleLogout from "@/app/auth/logout/logout";
 
 type Props = {
-  type?: string | "admin" | "anggota" | "bendahara";
+  type?: string | "admin" | "anggota" | "bendahara" | "ketua";
 };
 
 const Sidebar: FC<Props> = ({ type = "admin" }) => {
@@ -40,6 +40,8 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
       setMenus(anggotaMenu);
     } else if (type === "bendahara") {
       setMenus(bendaharaMenu);
+    } else if (type === "ketua") {
+      setMenus(ketuaMenu);
     }
     return () => {};
   }, [type]);
