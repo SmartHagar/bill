@@ -39,7 +39,7 @@ const Anggota = () => {
         </div>
         <div className="grow">
           <Swiper
-            slidesPerView={3}
+            slidesPerView={1}
             spaceBetween={30}
             pagination={{
               clickable: true,
@@ -47,6 +47,17 @@ const Anggota = () => {
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
             }}
             modules={[Pagination, Autoplay]}
             className="mySwiper"

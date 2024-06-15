@@ -1,7 +1,6 @@
 /** @format */
 
 "use client";
-import Image from "next/image";
 import ListMenu from "./ListMenu";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
@@ -70,9 +69,7 @@ const NavbarComp: FC<Props> = ({}) => {
           >
             {/* <Image src="/images/uogp.png" alt="logo" width={50} height={50} /> */}
             <div className="bg-menu-active -ml-12 lg:pl-12 py-2 rounded-r-full">
-              <span className="self-center ml-10 lg:mr-10 mr-4 lg:text-xl text-sm font-semibold text-slate-100">
-                Puskesmas Hom-Hom Wamena
-              </span>
+              <span className="self-center ml-10 lg:mr-10 mr-4 lg:text-xl text-sm font-semibold text-slate-100"></span>
             </div>
           </a>
         </div>

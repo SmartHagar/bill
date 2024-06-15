@@ -80,7 +80,7 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
         <button
           onClick={handleBurger}
           type="button"
-          className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-white rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
         >
           <span className="sr-only">Open sidebar</span>
           <svg
@@ -100,20 +100,24 @@ const Sidebar: FC<Props> = ({ type = "admin" }) => {
       </div>
 
       <aside
-        className={`z-40 w-full h-screen transition-transform -translate-x-full sm:translate-x-0 ${
+        className={`z-40 w-full h-screen transition-transform -translate-x-full lg:translate-x-0 ${
           open ? "translate-x-0" : ""
         }`}
         aria-label="Sidebar"
       >
-        <div className="sidebar z-50 h-full px-3 pt-4 overflow-y-auto bg-primary/[0.5] text-color-2 flex flex-row-reverse justify-between sm:block">
+        <div className="sidebar  bg-dark-blue z-50 h-full px-3 pt-4 overflow-y-auto bg-primary/[0.5] text-color-2 flex flex-row-reverse justify-between lg:block">
           <div
-            className="text-black cursor-pointer sm:hidden"
+            className="text-white cursor-pointer lg:hidden"
             onClick={handleBurger}
           >
             <BsXLg />
           </div>
           <div className="relative h-full sidebar w-full">
-            <div className="h-24 sidebar"></div>
+            <div className="h-24 sidebar flex items-center">
+              <h1 className="text-xl/tight lg:text-2xl font-bold bg-gradient-to-r from-blue via-light-blue to-green text-transparent bg-clip-text">
+                KOKENAT
+              </h1>
+            </div>
             <ul className="space-y-2 w-full">
               {menus &&
                 menus.map((menu, index) => {

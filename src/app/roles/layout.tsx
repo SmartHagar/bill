@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import FooterComp from "@/components/footer/FooterComp";
 import HeaderComp from "@/components/header/HeaderComp";
 import Sidebar from "@/components/sidebar/Sidebar";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import Auth from "./Auth";
 
 type Props = {
@@ -17,7 +17,7 @@ const layout = ({ children }: Props) => {
     <div className="min-h-screen w-full flex bg-linear">
       <Auth />
       {/* sidebar */}
-      <div className="fixed left-0 top-0 bottom-0 lg:w-52 text-white hidden lg:block">
+      <div className="fixed left-0 top-0 bottom-0 lg:w-52 text-white lg:block">
         <Sidebar type={type} />
       </div>
       <div className="lg:ml-52 flex flex-col min-h-screen grow overflow-hidden">

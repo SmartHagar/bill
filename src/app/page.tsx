@@ -7,26 +7,51 @@ import Anggota from "@/components/pages/Anggota";
 import Home from "@/components/pages/Home";
 import Kegiatan from "@/components/pages/Kegiatan";
 import { Element } from "react-scroll";
+import { useInView } from "react-intersection-observer";
+import { forwardRef, useEffect, useState } from "react";
 
 type Props = {};
 
+// Komponen ForwardedElement dengan displayName dan ref forwarding
+const ForwardedElement = forwardRef<
+  HTMLDivElement,
+  { name: string; children: React.ReactNode }
+>((props, ref) => {
+  return (
+    <Element name={props.name}>
+      <div ref={ref}>{props.children}</div>
+    </Element>
+  );
+});
+ForwardedElement.displayName = "ForwardedElement";
+
 const HomePage = (props: Props) => {
+  const [homeRef, homeInView] = useInView({ threshold: 0.1 });
+  const [kegiatanRef, kegiatanInView] = useInView({ threshold: 0.1 });
+  const [anggotaRef, anggotaInView] = useInView({ threshold: 0.1 });
+  // state
+  const [open, setOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (homeInView || kegiatanInView || anggotaInView) {
+      setOpen(false);
+    }
+  }, [homeInView, kegiatanInView, anggotaInView]);
   return (
     <div>
       {/* header */}
-      <HeaderNav />
+      <HeaderNav open={open} setOpen={setOpen} />
       {/* Home */}
-      <Element name="home">
+      <ForwardedElement name="home" ref={homeRef}>
         <Home />
-      </Element>
+      </ForwardedElement>
       {/* Kegiatan */}
-      <Element name="kegiatan">
+      <ForwardedElement name="kegiatan" ref={kegiatanRef}>
         <Kegiatan />
-      </Element>
+      </ForwardedElement>
       {/* Anggota */}
-      <Element name="anggota">
+      <ForwardedElement name="anggota" ref={anggotaRef}>
         <Anggota />
-      </Element>
+      </ForwardedElement>
       {/* footer */}
       <div className="h-11 items-center flex border-t mt-8">
         <FooterComp />
