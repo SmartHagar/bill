@@ -73,7 +73,7 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
 
   return (
     <ModalDefault
-      title="Form Dosen"
+      title="Form Bukti"
       showModal={showModal}
       setShowModal={setShowModal}
     >

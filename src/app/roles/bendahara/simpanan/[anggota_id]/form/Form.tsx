@@ -80,7 +80,7 @@ const Form = ({ showModal, setShowModal, dtEdit, anggota_id }: Props) => {
 
   return (
     <ModalDefault
-      title="Form Pinjaman"
+      title="Form Simpanan"
       showModal={showModal}
       setShowModal={setShowModal}
     >
