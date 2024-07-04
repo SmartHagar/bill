@@ -3,11 +3,9 @@
 import LoadingSpiner from "@/components/loading/LoadingSpiner";
 import PaginationDefault from "@/components/pagination/PaginationDefault";
 import TablesDefault from "@/components/tables/TablesDefault";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import usePinjaman from "@/stores/crud/Pinjaman";
 import PinjamanTypes from "@/types/PinjamanTypes";
-import { BsInfo, BsInfoCircle } from "react-icons/bs";
-import ModalDefault from "@/components/modal/ModalDefault";
 
 type DeleteProps = {
   id?: number | string;
@@ -63,6 +61,7 @@ const ShowData: FC<Props> = ({
   // table
   const headTable = [
     "No",
+    "Bukti",
     "Tgl. Pinjam",
     "Nominal",
     "Lama (Bulan)",
@@ -70,6 +69,7 @@ const ShowData: FC<Props> = ({
     "Status",
   ];
   const tableBodies = [
+    "bukti",
     "tgl_pinjam",
     "nominal",
     "lama_pinjam",

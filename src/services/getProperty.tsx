@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import { BASE_URL } from "./baseURL";
 import Image from "next/image";
 import moment from "moment";
@@ -8,7 +7,7 @@ import showRupiah from "./rupiah";
 
 const getProperty = (obj: any, prop: any, index: number, setIndexBox: any) => {
   const angkatan = obj?.thn_angkatan?.substring(2);
-  const mhs_angkatan = obj?.mhs?.thn_angkatan?.substring(2);
+  const bukti_anggota = obj?.terima_pinjam?.bukti;
   const jmlh_simpanan = obj?.simpanan;
   // sum nominal in jumlah simpanan
   const totalNominal = jmlh_simpanan?.reduce(
