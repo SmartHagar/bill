@@ -65,7 +65,8 @@ const ShowData: FC<Props> = ({
   const tableBodies = ["tgl_bayar", "status_bayar", "bukti_bayar"];
 
   useEffect(() => {
-    setTotal(hitungTotal(dtPembayaran.data));
+    const pembayaran = dtPembayaran.data;
+    pembayaran?.length > 0 && setTotal(hitungTotal(pembayaran));
 
     return () => {};
   }, [dtPembayaran.data]);
@@ -90,10 +91,12 @@ const ShowData: FC<Props> = ({
               ubah={true}
               hapus={false}
             />
-            <div className="text-lg">
-              <p>Total Angsuran: {showRupiah(total.totalAngsuran)}</p>
-              <p>Sisa Angsuran: {showRupiah(total.sisaAngsuran)}</p>
-            </div>
+            {total && (
+              <div className="text-lg">
+                <p>Total Angsuran: {showRupiah(total.totalAngsuran)}</p>
+                <p>Sisa Angsuran: {showRupiah(total.sisaAngsuran)}</p>
+              </div>
+            )}
           </div>
           {dtPembayaran?.last_page > 1 && (
             <div className="mt-4">
