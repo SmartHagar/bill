@@ -1,5 +1,7 @@
 /** @format */
 
+import TerimaPinjamTypes from "./TerimaPinjamTypes";
+
 // pembayaran
 interface PembayaranTypes {
   id: string | number;
@@ -7,6 +9,7 @@ interface PembayaranTypes {
   tgl_bayar: Date | string;
   bukti_bayar: string;
   status_bayar: string;
+  terima_pinjam: TerimaPinjamTypes;
 }
 
 export default PembayaranTypes;
