@@ -44,6 +44,7 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
     setValue("no_hp", "");
     setValue("alamat", "");
     setValue("foto", "");
+    setValue("email", "");
     setMyFile(null);
   };
 
@@ -58,6 +59,7 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
       setValue("no_hp", dtEdit.no_hp);
       setValue("alamat", dtEdit.alamat);
       setValue("foto", dtEdit.foto);
+      setValue("email", dtEdit.user.email);
     } else {
       resetForm();
     }
@@ -106,7 +108,9 @@ const Form = ({ showModal, setShowModal, dtEdit }: Props) => {
           {isLoading ? (
             <LoadingSpiner />
           ) : (
-            <BtnDefault onClick={handleSubmit(onSubmit)}>Simpan</BtnDefault>
+            <BtnDefault onClick={handleSubmit(onSubmit)} type="submit">
+              Simpan
+            </BtnDefault>
           )}
         </div>
       </form>

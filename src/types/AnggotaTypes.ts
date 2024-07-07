@@ -13,6 +13,7 @@ interface AnggotaTypes {
   no_hp: string;
   jabatan: string;
   foto: string;
+  email: string;
   user?: UserTypes;
 }
 

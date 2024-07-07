@@ -47,6 +47,7 @@ const useAnggota = create(
       formData.append("user_id", row.user_id);
       formData.append("nik", row.nik);
       formData.append("nm_anggota", row.nm_anggota);
+      formData.append("email", row.email);
       formData.append("jenkel", row.jenkel);
       formData.append("alamat", row.alamat);
       formData.append("no_hp", row.no_hp);

@@ -1,11 +1,10 @@
 /** @format */
 "use client";
-import InputDateIncludeIntervals from "@/components/input/InputDateIncludeIntervals";
 import InputFile from "@/components/input/InputFile";
 import InputRadio from "@/components/input/InputRadio";
 import InputTextDefault from "@/components/input/InputTextDefault";
 import { SelectDefault } from "@/components/select/SelectDefault";
-import React, { FC, useEffect } from "react";
+import { FC } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -48,6 +47,15 @@ const BodyForm: FC<Props> = ({
         register={register}
         required
         errors={errors.nm_anggota}
+        addClass="col-span-4"
+      />
+      <InputTextDefault
+        label="Email"
+        name="email"
+        register={register}
+        required
+        errors={errors.email}
+        type="email"
         addClass="col-span-4"
       />
       {/* jenkel */}

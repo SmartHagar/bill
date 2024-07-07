@@ -71,8 +71,6 @@ const ShowData: FC<Props> = ({
     return () => {};
   }, [dtPembayaran.data]);
 
-  console.log({ total });
-
   return (
     <div className="flex-1 flex-col max-w-full h-full overflow-auto">
       {isLoading ? (
